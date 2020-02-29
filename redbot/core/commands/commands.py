@@ -5,6 +5,7 @@ be used instead of those from the `discord.ext.commands` module.
 """
 from __future__ import annotations
 
+import asyncio
 import inspect
 import re
 import functools
@@ -454,6 +455,19 @@ class Command(CogCommandMixin, DPYCommand):
             if not change_permission_state:
                 ctx.permission_state = original_state
 
+    async def call_before_hooks(self, ctx):
+        cog = self.cog
+        if cog is not None and cog._Cog__init_task is not None:
+            async with ctx.typing():
+                await cog._Cog__ready.wait()
+            if cog._Cog__ready_raised:
+                await ctx.send(
+                    "There was an error during cog's initialization."
+                    " Check logs for more information."
+                )
+                raise CheckFailure()
+        await super().call_before_hooks(ctx)
+
     async def prepare(self, ctx):
         ctx.command = self
 
@@ -867,6 +881,12 @@ class Cog(CogMixin, DPYCog, metaclass=DPYCogMeta):
     """
 
     __cog_commands__: Tuple[Command]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__init_task = None
+        self.__ready_raised = False
+        self.__ready = asyncio.Event()
 
     @property
     def all_commands(self) -> Dict[str, Command]:

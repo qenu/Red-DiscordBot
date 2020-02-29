@@ -921,6 +921,9 @@ class RedBase(
             else:
                 self.remove_permissions_hook(hook)
 
+        if cog._Cog__init_task is not None:
+            cog._Cog__init_task.cancel()
+
         super().remove_cog(cogname)
 
         cog.requires.reset()
@@ -1032,6 +1035,24 @@ class RedBase(
                 else:
                     self.add_permissions_hook(hook)
                     added_hooks.append(hook)
+            try:
+                initialize_method = getattr(cog, "red_initialize")
+            except AttributeError:
+                pass
+            else:
+
+                def _done_callback(task: asyncio.Task) -> None:
+                    exc = task.exception()
+                    if exc is not None:
+                        log.error(
+                            "An unexpected error occurred during cog's initialization.",
+                            exc_info=exc,
+                        )
+                        cog._Cog__ready_raised = True
+                    cog._Cog__ready.set()
+
+                cog._Cog__init_task = asyncio.create_task(initialize_method())
+                cog._Cog__init_task.add_done_callback(_done_callback)
 
             super().add_cog(cog)
             self.dispatch("cog_add", cog)
@@ -1047,6 +1068,8 @@ class RedBase(
                         "A hook got extremely screwed up, "
                         "and could not be removed properly during another error in cog load."
                     )
+            if cog._Cog__init_task is not None:
+                cog._Cog__init_task.cancel()
             del cog
             raise
 
