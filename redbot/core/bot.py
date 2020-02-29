@@ -1,4 +1,5 @@
 import asyncio
+import functools
 import inspect
 import logging
 import os
@@ -1041,7 +1042,7 @@ class RedBase(
                 pass
             else:
 
-                def _done_callback(task: asyncio.Task) -> None:
+                def _done_callback(cog: commands.Cog, task: asyncio.Task) -> None:
                     exc = task.exception()
                     if exc is not None:
                         log.error(
@@ -1052,7 +1053,7 @@ class RedBase(
                     cog._Cog__ready.set()
 
                 cog._Cog__init_task = asyncio.create_task(initialize_method())
-                cog._Cog__init_task.add_done_callback(_done_callback)
+                cog._Cog__init_task.add_done_callback(functools.partial(_done_callback, cog))
 
             super().add_cog(cog)
             self.dispatch("cog_add", cog)

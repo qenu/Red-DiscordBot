@@ -884,9 +884,9 @@ class Cog(CogMixin, DPYCog, metaclass=DPYCogMeta):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__init_task = None
-        self.__ready_raised = False
-        self.__ready = asyncio.Event()
+        self._Cog__init_task = None
+        self._Cog__ready_raised = False
+        self._Cog__ready = asyncio.Event()
 
     @property
     def all_commands(self) -> Dict[str, Command]:
