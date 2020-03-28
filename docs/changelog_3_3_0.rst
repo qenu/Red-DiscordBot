@@ -9,96 +9,54 @@ Redbot 3.3.3 (Unreleased)
 End-user changelog
 ------------------
 
-Core Bot
-********
+- **Core Bot** - Delete delay for command messages has been moved from Mod cog to Core (:issue:`3638`, :issue:`3636`)
+- **Core Bot** - Fixed various bugs with blacklist and whitelist (:issue:`3643`, :issue:`3642`)
+- **Core Bot** - Outages of ``pypi.org`` no longer prevent the bot from starting (:issue:`3663`)
+- **Core Bot** - Fixed formatting of help strings in fuzzy search results (:issue:`3673`, :issue:`3507`)
+- **Core Bot** - Fixed few deprecation warnings related to menus and uvloop (:issue:`3644`, :issue:`3700`)
 
-- Delete delay for command messages has been moved from Mod cog to Core (:issue:`3638`, :issue:`3636`)
-- Fixed various bugs with blacklist and whitelist (:issue:`3643`, :issue:`3642`)
-- Outages of ``pypi.org`` no longer prevent the bot from starting (:issue:`3663`)
-- Fixed formatting of help strings in fuzzy search results (:issue:`3673`, :issue:`3507`)
-- Fixed few deprecation warnings related to menus and uvloop (:issue:`3644`, :issue:`3700`)
+- **Core Commands** - ``[p]set game`` no longer errors when trying to clear the status (:issue:`3630`, :issue:`3628`)
+- **Core Commands** - All owner notifcations in Core now use proper prefixes in messages (:issue:`3632`)
+- **Core Commands** - Added ``[p]set playing`` and ``[p]set streaming`` aliases for respectively ``[p]set game`` and ``[p]set stream`` (:issue:`3646`, :issue:`3590`)
 
-Core Commands
-*************
+- **ModLog** - Modlog's cases now keep last known username to prevent losing that information from case's message on edit (:issue:`3674`, :issue:`3443`)
 
-- ``[p]set game`` no longer errors when trying to clear the status (:issue:`3630`, :issue:`3628`)
-- All owner notifcations in Core now use proper prefixes in messages (:issue:`3632`)
-- Added ``[p]set playing`` and ``[p]set streaming`` aliases for respectively ``[p]set game`` and ``[p]set stream`` (:issue:`3646`, :issue:`3590`)
+- **CustomCom** - Added ``[p]cc search`` command that allows users to search through created custom commands (:issue:`2573`)
 
-ModLog
-******
+- **Cleanup** - Added ``[p]cleanup spam`` command that deletes duplicate messages from the last X messages and keeps only one copy (:issue:`3688`)
 
-- Modlog's cases now keep last known username to prevent losing that information from case's message on edit (:issue:`3674`, :issue:`3443`)
+- **Downloader** - ``[p]cog checkforupdates`` now includes information about cogs that can't be installed due to Red/Python version requirements (:issue:`3678`, :issue:`3448`)
 
-CustomCom
-*********
+- **General** - Added more detailed mode to ``[p]serverinfo`` command that can be accessed with ``[p]serverinfo 1`` (:issue:`2382`, :issue:`3659`)
 
-- Added ``[p]cc search`` command that allows users to search through created custom commands (:issue:`2573`)
+- **Image** - Users can now specify how many images should be returned in ``[p]imgur search`` and ``[p]imgur subreddit`` using ``[count]`` argument (:issue:`3667`, :issue:`3044`)
+- **Image** -``[p]imgur search`` and ``[p]imgur subreddit`` now return one image by default (:issue:`3667`, :issue:`3044`)
 
-Cleanup
-*******
+- **Mod** - ``[p]userinfo`` now shows user's activities (:issue:`3669`)
+- **Mod** - ``[p]userinfo`` now shows status icon near the username (:issue:`3669`)
+- **Mod** - Muting no longer fails if user leaves while applying overwrite (:issue:`3627`)
+- **Mod** - Fixed error that happened when Mod cog was loaded for the first time during bot startup (:issue:`3632`, :issue:`3626`)
 
-- Added ``[p]cleanup spam`` command that deletes duplicate messages from the last X messages and keeps only one copy (:issue:`3688`)
+- **Permissions** - Commands for setting default rules now error when user tries to deny access to command designated as being always available (:issue:`3504`, :issue:`3465`)
 
-Downloader
-**********
+- **Streams** - Fixed an error that happened when no game was set on Twitch stream (:issue:`3631`)
+- **Streams** - Preview picture for YouTube stream alerts is now bigger (:issue:`3689`, :issue:`3685`)
+- **Streams** - YouTube channels with a livestream that doesn't have any current viewer are now properly showing as streaming (:issue:`3690`)
+- **Streams** - Failures in Twitch API authentication are now logged (:issue:`3657`)
 
-- ``[p]cog checkforupdates`` now includes information about cogs that can't be installed due to Red/Python version requirements (:issue:`3678`, :issue:`3448`)
+- **Trivia** - Added ``[p]triviaset custom upload/delete/list`` commands for managing custom trivia lists from Discord (:issue:`3420`, :issue:`3307`)
+- **Trivia** - Trivia sessions no longer error on payout when winner's balance would exceed max balance (:issue:`3666`, :issue:`3584`)
 
-General
-*******
-
-- Added more detailed mode to ``[p]serverinfo`` command that can be accessed with ``[p]serverinfo 1`` (:issue:`2382`, :issue:`3659`)
-
-Image
-*****
-
-- Users can now specify how many images should be returned in ``[p]imgur search`` and ``[p]imgur subreddit`` using ``[count]`` argument (:issue:`3667`, :issue:`3044`)
-- ``[p]imgur search`` and ``[p]imgur subreddit`` now return one image by default (:issue:`3667`, :issue:`3044`)
-
-Mod
-***
-
-- ``[p]userinfo`` now shows user's activities (:issue:`3669`)
-- ``[p]userinfo`` now shows status icon near the username (:issue:`3669`)
-- Muting no longer fails if user leaves while applying overwrite (:issue:`3627`)
-- Fixed error that happened when Mod cog was loaded for the first time during bot startup (:issue:`3632`, :issue:`3626`)
-
-Permissions
-***********
-
-- Commands for setting default rules now error when user tries to deny access to command designated as being always available (:issue:`3504`, :issue:`3465`)
-
-Streams
-*******
-
-- Fixed an error that happened when no game was set on Twitch stream (:issue:`3631`)
-- Preview picture for YouTube stream alerts is now bigger (:issue:`3689`, :issue:`3685`)
-- YouTube channels with a livestream that doesn't have any current viewer are now properly showing as streaming (:issue:`3690`)
-- Failures in Twitch API authentication are now logged (:issue:`3657`)
-
-Trivia
-******
-
-- Added ``[p]triviaset custom upload/delete/list`` commands for managing custom trivia lists from Discord (:issue:`3420`, :issue:`3307`)
-- Trivia sessions no longer error on payout when winner's balance would exceed max balance (:issue:`3666`, :issue:`3584`)
-
-Warnings
-********
-
-- Sending warnings to warned user can now be disabled with ``[p]warnset toggledm`` command (:issue:`2929`, :issue:`2800`)
-- Added ``[p]warnset warnchannel`` command that allows to set a channel where warnings should be sent to instead of the channel command was called in (:issue:`2929`, :issue:`2800`)
-- Added ``[p]warnset togglechannel`` command that allows to disable sending warn message in guild channel (:issue:`2929`, :issue:`2800`)
-- ``[p]warn`` now tells the moderator when bot wasn't able to send the warning to the user (:issue:`3653`, :issue:`3633`)
+- **Warnings** - Sending warnings to warned user can now be disabled with ``[p]warnset toggledm`` command (:issue:`2929`, :issue:`2800`)
+- **Warnings** - Added ``[p]warnset warnchannel`` command that allows to set a channel where warnings should be sent to instead of the channel command was called in (:issue:`2929`, :issue:`2800`)
+- **Warnings** - Added ``[p]warnset togglechannel`` command that allows to disable sending warn message in guild channel (:issue:`2929`, :issue:`2800`)
+- **Warnings** - ``[p]warn`` now tells the moderator when bot wasn't able to send the warning to the user (:issue:`3653`, :issue:`3633`)
 
 
 Developer changelog
 -------------------
 
-Core Bot
-********
-
-- Deprecation warnings issued by Red now use correct stack level so that the cog developers can find the cause of them (:issue:`3644`)
+- **Core Bot** - Deprecation warnings issued by Red now use correct stack level so that the cog developers can find the cause of them (:issue:`3644`)
 
 
 Documentation changes
