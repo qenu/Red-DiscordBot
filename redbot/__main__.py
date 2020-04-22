@@ -312,7 +312,7 @@ def handle_edit(cli_flags: Namespace):
     except (KeyboardInterrupt, EOFError):
         print("Aborted!")
     finally:
-        print(asyncio.all_tasks())
+        print(asyncio.all_tasks(loop))
         loop.run_until_complete(loop.shutdown_asyncgens())
         loop.run_until_complete(asyncio.sleep(2))
         asyncio.set_event_loop(None)
