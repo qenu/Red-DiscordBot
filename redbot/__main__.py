@@ -304,10 +304,11 @@ def handle_edit(cli_flags: Namespace):
     try:
         driver_cls = drivers.get_driver_class()
         loop.run_until_complete(driver_cls.initialize(**data_manager.storage_details()))
-        loop.run_until_complete(edit_instance(red, cli_flags))
+        try:
+            loop.run_until_complete(edit_instance(red, cli_flags))
+        except SystemExit as exc:
+            return_code = exc.code
         loop.run_until_complete(driver_cls.teardown())
-    except SystemExit as exc:
-        return_code = exc.code
     except (KeyboardInterrupt, EOFError):
         print("Aborted!")
     finally:
