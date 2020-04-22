@@ -313,7 +313,7 @@ def handle_edit(cli_flags: Namespace):
         print("Aborted!")
     finally:
         loop.run_until_complete(loop.shutdown_asyncgens())
-        loop.run_until_complete(asyncio.sleep(1))
+        loop.run_until_complete(asyncio.sleep(2))
         asyncio.set_event_loop(None)
         loop.stop()
         loop.close()
