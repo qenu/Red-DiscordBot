@@ -312,6 +312,7 @@ def handle_edit(cli_flags: Namespace):
     except (KeyboardInterrupt, EOFError):
         print("Aborted!")
     finally:
+        loop.run_until_complete(loop.shutdown_asyncgens())
         loop.run_until_complete(asyncio.sleep(1))
         asyncio.set_event_loop(None)
         loop.stop()
