@@ -317,8 +317,7 @@ def handle_edit(cli_flags: Namespace):
             loop.run_until_complete(fut)
         except RuntimeError:
             print(fut.done(), fut.cancelled())
-            if fut.done() and not fut.cancelled():
-                print(fut.exception())
+            print(fut.exception())
             raise
         asyncio.set_event_loop(None)
         loop.stop()
