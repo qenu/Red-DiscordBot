@@ -101,7 +101,7 @@ def debug_info():
     sys.exit(0)
 
 
-async def edit_instance(red, cli_flags):
+async def edit_instance(red: Red, cli_flags: Namespace) -> None:
     no_prompt = cli_flags.no_prompt
     token = cli_flags.token
     owner = cli_flags.owner
@@ -300,11 +300,14 @@ def handle_edit(cli_flags: Namespace):
     asyncio.set_event_loop(loop)
     data_manager.load_basic_configuration(cli_flags.instance_name)
     red = Red(cli_flags=cli_flags, description="Red V3", dm_help=None, fetch_offline_members=True)
+    return_code = 0
     try:
         driver_cls = drivers.get_driver_class()
         loop.run_until_complete(driver_cls.initialize(**data_manager.storage_details()))
         loop.run_until_complete(edit_instance(red, cli_flags))
         loop.run_until_complete(driver_cls.teardown())
+    except SystemExit as exc:
+        return_code = exc.code
     except (KeyboardInterrupt, EOFError):
         print("Aborted!")
     finally:
@@ -312,7 +315,7 @@ def handle_edit(cli_flags: Namespace):
         asyncio.set_event_loop(None)
         loop.stop()
         loop.close()
-        sys.exit(0)
+        sys.exit(return_code)
 
 
 async def run_bot(red: Red, cli_flags: Namespace) -> None:
