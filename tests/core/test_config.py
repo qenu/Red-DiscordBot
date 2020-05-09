@@ -567,6 +567,7 @@ async def test_set_with_partial_primary_keys(config):
             "11": {"111": {"foo": "bad"}},
             "22": {"111": {"foo": "baz"}},
             "33": {"111": {"foo": "boo"}, "222": {"foo": "boz"}},
+            "44": "hmm",
         }
     )
     assert await config.custom("CUSTOM", "2", "11", "111").foo() == "bad"
