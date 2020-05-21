@@ -61,3 +61,144 @@ API Reference
 *************
 
 Please see the :class:`redbot.core.bot.RedBase` class for details on the RPC handler register and unregister methods.
+
+
+****************
+Core RPC methods 
+****************
+
+Below is a list of all RPC methods that are included in Red. Some of them might require you to load a specific cog.
+
+.. important::
+
+    Remember that all RPC methods exposed by Red are not covered by our version guarantees and may break without notice.
+
+Core
+----
+
+.. describe:: CORE__UNLOAD
+
+    Unloads cogs with the given names.
+
+    **Request info**
+
+    .. tabs::
+
+        .. tab:: JSON params
+
+            .. list-table::
+                :widths: auto
+                :header-rows: 1
+
+                * - Field
+                  - Type
+                  - Description
+                * - cog_names
+                  - array of strings
+                  - array of cog names to unload
+
+        .. tab:: Example payload
+
+            .. sourcecode:: json
+
+                {
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "method": "CORE__UNLOAD",
+                    "params": {
+                        "cog_names": ["admin", "downloader"]
+                    }
+                }
+
+    **Response**
+
+    .. tabs::
+
+        .. tab:: Response fields
+
+            .. list-table::
+                :widths: auto
+                :header-rows: 1
+
+                * - Field
+                  - Type
+                  - Description
+                * - unloaded_packages
+                  - array of strings
+                  - array of cog names that were unloaded successfully
+                * - failed_packages
+                  - array of strings
+                  - array of cog names that were not loaded
+
+        .. tab:: Example payload
+
+            .. sourcecode:: json
+
+                {
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "result": {
+                        "unloaded_packages": ["admin"],
+                        "failed_packages": ["downloader"]
+                    }
+                }
+
+
+.. describe:: CORE__UNLOAD
+
+    Unloads cogs with the given names.
+
+    **JSON params**
+
+    .. list-table::
+        :widths: auto
+        :header-rows: 1
+
+        * - Field
+          - Type
+          - Description
+        * - cog_names
+          - array of strings
+          - array of cog names to unload
+
+    **Response fields**
+
+    .. list-table::
+        :widths: auto
+        :header-rows: 1
+
+        * - Field
+          - Type
+          - Description
+        * - unloaded_packages
+          - array of strings
+          - array of cog names that were unloaded successfully
+        * - failed_packages
+          - array of strings
+          - array of cog names that were not loaded
+
+    **Example request payload**
+
+    .. sourcecode:: json
+
+        {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "CORE__UNLOAD",
+            "params": {
+                "cog_names": ["admin", "downloader"]
+            }
+        }
+
+    **Example response**
+
+    .. sourcecode:: json
+
+        {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "result": {
+                "unloaded_packages": ["admin"],
+                "failed_packages": ["downloader"]
+            }
+        }
