@@ -126,7 +126,7 @@ class Repo(RepoJSONMixin):
         " -- {module_name}/__init__.py"
     )
 
-    PIP_INSTALL = "{python} -m pip install -U -t {target_dir} {reqs}"
+    PIP_INSTALL = "{python} -m pip install -vvv -U -t {target_dir} {reqs}"
 
     MODULE_FOLDER_REGEX = re.compile(r"(\w+)\/")
     AMBIGUOUS_ERROR_REGEX = re.compile(
@@ -538,6 +538,9 @@ class Repo(RepoJSONMixin):
             )
             # logging can't use surrogateescape
             stderr = p.stderr.decode(encoding="utf-8", errors="replace").strip()
+            stdout = p.stdout.decode(encoding="utf-8", errors="replace").strip()
+            if stdout:
+                log.debug(stdout)
             if stderr:
                 if debug_only or p.returncode in valid_exit_codes:
                     log.debug(stderr)
