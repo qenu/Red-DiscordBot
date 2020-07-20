@@ -1,5 +1,6 @@
 import asyncio
 import contextlib
+import logging
 from typing import Optional
 
 import discord
@@ -9,6 +10,8 @@ from redbot.core.utils import AsyncIter
 from redbot.core.utils.chat_formatting import humanize_list, inline
 
 _ = Translator("Announcer", __file__)
+
+log = logging.getLogger("red.cogs.admin.announcer")
 
 
 class Announcer:
@@ -91,6 +94,16 @@ class Announcer:
         except asyncio.CancelledError:
             # The running announcement was cancelled
             pass
+        else:
+            for idx, result in enumerate(results):
+                if result is not None:
+                    guild_id = str(guild_list[idx].id)
+                    log.error(
+                        "There was an unhandled exception during announcement for guild with ID %s",
+                        guild_id,
+                        exc_info=result,
+                    )
+                    self._failed.append(guild_id)
 
         if self._failed:
             msg = (
