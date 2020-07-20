@@ -43,7 +43,7 @@ class Announcer:
         if self._task is not None:
             self._task.cancel()
 
-    async def _get_announce_channel(self, guild: discord.Guild) -> discord.TextChannel:
+    async def _get_announce_channel(self, guild: discord.Guild) -> Optional[discord.TextChannel]:
         channel_id = await self.config.guild(guild).announce_channel()
         channel = None
 
@@ -54,7 +54,8 @@ class Announcer:
             channel = guild.system_channel
 
         if channel is None:
-            channel = guild.text_channels[0]
+            with contextlib.suppress(IndexError):
+                channel = guild.text_channels[0]
 
         return channel
 
@@ -63,6 +64,11 @@ class Announcer:
             return
 
         channel = await self._get_announce_channel(guild)
+
+        if channel is None:
+            # No channel to send to
+            self._failed.append(str(guild.id))
+            return
 
         try:
             if not channel.permissions_for(guild.me).send_messages:
