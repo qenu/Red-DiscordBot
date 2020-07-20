@@ -1,4 +1,6 @@
 import asyncio
+import contextlib
+from typing import Optional
 
 import discord
 from redbot.core import commands
@@ -21,6 +23,8 @@ class Announcer:
         self.config = config
 
         self.active = None
+        self._task = None
+        self._failed = None
 
     def start(self):
         """
@@ -29,14 +33,15 @@ class Announcer:
         """
         if self.active is None:
             self.active = True
-            self.ctx.bot.loop.create_task(self.announcer())
+            asyncio.create_task(self.announcer())
 
     def cancel(self):
         """
         Cancels a running announcement.
         :return:
         """
-        self.active = False
+        if self._task is not None:
+            self._task.cancel()
 
     async def _get_announce_channel(self, guild: discord.Guild) -> discord.TextChannel:
         channel_id = await self.config.guild(guild).announce_channel()
@@ -53,29 +58,39 @@ class Announcer:
 
         return channel
 
+    async def guild_announce(self, guild: discord.Guild) -> None:
+        if await self.config.guild(guild).announce_ignore():
+            return
+
+        channel = await self._get_announce_channel(guild)
+
+        try:
+            await channel.send(self.message)
+        except discord.Forbidden:
+            # Bot doesn't have permission to send messages in announcement channel.
+            self._failed.append(str(guild.id))
+            return
+
     async def announcer(self):
-        guild_list = self.ctx.bot.guilds
-        failed = []
-        async for g in AsyncIter(guild_list, delay=0.5):
-            if not self.active:
-                return
+        guild_list = list(self.ctx.bot.guilds)
+        self._failed = []
+        self._task = asyncio.gather(
+            *(self.guild_announce(guild) for guild in guild_list), return_exceptions=True
+        )
 
-            if await self.config.guild(g).announce_ignore():
-                continue
+        try:
+            results = await self._task
+        except asyncio.CancelledError:
+            # The running announcement was cancelled
+            pass
 
-            channel = await self._get_announce_channel(g)
-
-            try:
-                await channel.send(self.message)
-            except discord.Forbidden:
-                failed.append(str(g.id))
-
-        if failed:
+        if self._failed:
             msg = (
                 _("I could not announce to the following server: ")
-                if len(failed) == 1
+                if len(self._failed) == 1
                 else _("I could not announce to the following servers: ")
             )
-            msg += humanize_list(tuple(map(inline, failed)))
+            msg += humanize_list(tuple(map(inline, self._failed)))
             await self.ctx.bot.send_to_owners(msg)
+
         self.active = False
