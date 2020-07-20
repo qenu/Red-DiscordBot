@@ -65,8 +65,10 @@ class Announcer:
         channel = await self._get_announce_channel(guild)
 
         try:
+            if not channel.permissions_for(guild.me).send_messages:
+                raise RuntimeError
             await channel.send(self.message)
-        except discord.Forbidden:
+        except (discord.Forbidden, RuntimeError):
             # Bot doesn't have permission to send messages in announcement channel.
             self._failed.append(str(guild.id))
             return
