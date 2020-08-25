@@ -27,6 +27,8 @@ from typing import (
     Any,
     Literal,
     MutableMapping,
+    Mapping,
+    Type,
     Set,
     overload,
 )
@@ -68,6 +70,7 @@ DataDeletionResults = namedtuple("DataDeletionResults", "failed_modules failed_c
 
 PreInvokeCoroutine = Callable[[commands.Context], Awaitable[Any]]
 T_BIC = TypeVar("T_BIC", bound=PreInvokeCoroutine)
+_CT = TypeVar("_CT", bound=commands.Context)
 UserOrRole = Union[int, discord.Role, discord.Member, discord.User]
 
 
@@ -87,6 +90,10 @@ class RedBase(
     and only remains temporarily to not break people
     relying on the publicly exposed bases existing.
     """
+
+    owner_id: None
+    owner_ids: Set[int]
+    cogs: Mapping[str, commands.Cog]
 
     def __init__(self, *args, cli_flags=None, bot_dir: Path = Path.cwd(), **kwargs):
         self._shutdown_mode = ExitCodes.CRITICAL
@@ -1204,7 +1211,7 @@ class RedBase(
     async def send_help_for(
         self,
         ctx: commands.Context,
-        help_for: Union[commands.Command, commands.GroupMixin, str],
+        help_for: commands.help.HelpTarget,
         *,
         from_help_command: bool = False,
     ):
@@ -1464,7 +1471,18 @@ class RedBase(
         for service in service_names:
             self.dispatch("red_api_tokens_update", service, MappingProxyType({}))
 
-    async def get_context(self, message, *, cls=commands.Context):
+    # apparently mypy can't infer the type from default
+    @overload
+    async def get_context(self, message: discord.Message) -> commands.Context:
+        ...
+
+    @overload
+    async def get_context(self, message: discord.Message, *, cls: Type[_CT] = ...) -> _CT:
+        ...
+
+    async def get_context(
+        self, message: discord.Message, *, cls: Type[_CT] = commands.Context
+    ) -> _CT:
         return await super().get_context(message, cls=cls)
 
     async def process_commands(self, message: discord.Message):
