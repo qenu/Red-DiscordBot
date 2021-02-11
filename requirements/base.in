@@ -1,0 +1,20 @@
+aiohttp
+aiohttp-json-rpc
+aiosqlite
+appdirs
+apsw-wheels
+babel
+click
+colorama
+discord.py
+distro; sys_platform == "linux"
+fuzzywuzzy
+markdown
+python-dateutil
+python-Levenshtein-wheels
+PyYAML
+Red-Lavalink
+rich
+schema
+tqdm
+uvloop; sys_platform != "win32" and platform_python_implementation == "CPython"

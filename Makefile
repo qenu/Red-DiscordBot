@@ -2,6 +2,13 @@ PYTHON ?= python3.8
 
 ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
+REQUIREMENT_FILES = $(filter-out requirements/_constraint.in, $(wildcard requirements/*.in))
+
+define pipcompile_extra
+$(PYTHON) -m piptools compile --output-file=$(basename $(1)).txt $(1) 'requirements/_constraint.in';
+endef
+
+
 # Python Code Style
 reformat:
 	$(PYTHON) -m black $(ROOT_DIR)
@@ -20,7 +27,8 @@ download_translations:
 
 # Dependencies
 bumpdeps:
-	$(PYTHON) tools/bumpdeps.py
+	$(PYTHON) -m piptools compile --output-file='requirements/requirements-dev.txt' $(REQUIREMENT_FILES)
+	$(foreach file, $(REQUIREMENT_FILES), $(call pipcompile_extra, $(file)))
 
 # Development environment
 newenv:
