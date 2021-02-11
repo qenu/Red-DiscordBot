@@ -1,2 +1,0 @@
-# this file is used to provide a constraint when generating the rest of files
--c requirements-dev.txt
