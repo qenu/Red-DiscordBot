@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    # Add assignees
+    assignees:
+      - "jack1142"
+    open-pull-requests-limit: 99
