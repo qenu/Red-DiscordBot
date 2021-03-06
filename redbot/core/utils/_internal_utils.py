@@ -126,7 +126,7 @@ async def fuzzy_command_search(
 
         try:
             await cmd_obj.get(ctx.message, term)
-        except:
+        except Exception:
             pass
         else:
             return None
