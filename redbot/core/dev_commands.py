@@ -1,15 +1,15 @@
 import ast
 import asyncio
-import aiohttp
 import inspect
 import io
+import re
 import textwrap
 import traceback
 import types
-import re
 from contextlib import redirect_stdout
 from copy import copy
 
+import aiohttp
 import discord
 
 from . import checks, commands

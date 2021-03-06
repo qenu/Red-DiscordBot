@@ -8,6 +8,7 @@ import discord
 import lavalink
 
 from redbot.core.i18n import Translator, set_contextual_locales_from_guild
+
 from ...errors import DatabaseError, TrackEnqueueError
 from ..abc import MixinMeta
 from ..cog_utils import CompositeMetaClass

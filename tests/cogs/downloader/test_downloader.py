@@ -1,19 +1,13 @@
 from collections import namedtuple
-from typing import NamedTuple
 from pathlib import Path
+from typing import NamedTuple
 
 import pytest
 from pytest_mock import MockFixture
 
+from redbot.cogs.downloader.errors import AmbiguousRevision, ExistingGitRepo, UnknownRevision
+from redbot.cogs.downloader.repo_manager import Candidate, Installable, ProcessFormatter, Repo
 from redbot.pytest.downloader import *
-
-from redbot.cogs.downloader.repo_manager import Installable
-from redbot.cogs.downloader.repo_manager import Candidate, ProcessFormatter, Repo
-from redbot.cogs.downloader.errors import (
-    AmbiguousRevision,
-    ExistingGitRepo,
-    UnknownRevision,
-)
 
 
 class FakeCompletedProcess(NamedTuple):

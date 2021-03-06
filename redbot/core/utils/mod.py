@@ -1,7 +1,7 @@
 import asyncio
 import warnings
 from datetime import timedelta
-from typing import List, Iterable, Union, TYPE_CHECKING, Dict
+from typing import TYPE_CHECKING, Dict, Iterable, List, Union
 
 import discord
 

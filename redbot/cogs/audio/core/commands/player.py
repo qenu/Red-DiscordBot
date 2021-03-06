@@ -4,13 +4,12 @@ import logging
 import math
 import time
 from pathlib import Path
-
 from typing import MutableMapping
 
 import discord
 import lavalink
-
 from discord.embeds import EmptyEmbed
+
 from redbot.core import commands
 from redbot.core.commands import UserInputOptional
 from redbot.core.i18n import Translator
@@ -19,12 +18,7 @@ from redbot.core.utils.menus import DEFAULT_CONTROLS, close_menu, menu, next_pag
 
 from ...audio_dataclasses import _PARTIALLY_SUPPORTED_MUSIC_EXT, Query
 from ...audio_logging import IS_DEBUG
-from ...errors import (
-    DatabaseError,
-    QueryUnauthorized,
-    SpotifyFetchError,
-    TrackEnqueueError,
-)
+from ...errors import DatabaseError, QueryUnauthorized, SpotifyFetchError, TrackEnqueueError
 from ..abc import MixinMeta
 from ..cog_utils import CompositeMetaClass
 

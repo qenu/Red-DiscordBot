@@ -4,7 +4,6 @@ import datetime
 import logging
 import math
 from pathlib import Path
-
 from typing import MutableMapping, Optional
 
 import discord

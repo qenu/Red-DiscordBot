@@ -1,8 +1,8 @@
 import pytest
 
-from redbot.pytest.downloader import *
 from redbot.cogs.downloader.installable import InstallableType
 from redbot.core import VersionInfo
+from redbot.pytest.downloader import *
 
 
 def test_process_info_file(installable):

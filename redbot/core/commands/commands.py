@@ -5,41 +5,41 @@ be used instead of those from the `discord.ext.commands` module.
 """
 from __future__ import annotations
 
+import functools
 import inspect
 import io
 import re
-import functools
 import weakref
 from typing import (
+    TYPE_CHECKING,
     Awaitable,
     Callable,
     Dict,
     List,
     Literal,
+    MutableMapping,
     Optional,
     Tuple,
     Union,
-    MutableMapping,
-    TYPE_CHECKING,
 )
 
 import discord
 from discord.ext.commands import (
     BadArgument,
-    CommandError,
     CheckFailure,
-    DisabledCommand,
-    command as dpy_command_deco,
-    Command as DPYCommand,
     Cog as DPYCog,
     CogMeta as DPYCogMeta,
-    Group as DPYGroup,
+    Command as DPYCommand,
+    CommandError,
+    DisabledCommand,
     Greedy,
+    Group as DPYGroup,
+    command as dpy_command_deco,
 )
 
-from .errors import ConversionFailure
-from .requires import PermState, PrivilegeLevel, Requires, PermStateAllowedStates
 from ..i18n import Translator
+from .errors import ConversionFailure
+from .requires import PermState, PermStateAllowedStates, PrivilegeLevel, Requires
 
 if TYPE_CHECKING:
     # circular import avoidance

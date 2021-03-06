@@ -1,17 +1,19 @@
 from __future__ import annotations
+
 import asyncio
 import json
 import logging
-from asyncio import as_completed, Semaphore
+from asyncio import Semaphore, as_completed
 from asyncio.futures import isfuture
 from itertools import chain
 from pathlib import Path
 from typing import (
     Any,
-    AsyncIterator,
     AsyncIterable,
+    AsyncIterator,
     Awaitable,
     Callable,
+    Generator,
     Iterable,
     Iterator,
     List,
@@ -19,7 +21,6 @@ from typing import (
     Tuple,
     TypeVar,
     Union,
-    Generator,
 )
 
 from discord.utils import maybe_coroutine

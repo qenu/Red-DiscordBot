@@ -1,40 +1,34 @@
 import asyncio
 import contextlib
 import datetime
+import getpass
 import importlib
+import io
 import itertools
 import keyword
 import logging
-import io
-import random
-import markdown
 import os
+import platform
+import random
 import re
 import sys
-import platform
-import getpass
-import pip
 import traceback
 from pathlib import Path
 from string import ascii_letters, digits
-from typing import TYPE_CHECKING, Union, Tuple, List, Optional, Iterable, Sequence, Dict, Set
+from typing import TYPE_CHECKING, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
 import aiohttp
 import discord
+import markdown
+import pip
 from babel import Locale as BabelLocale, UnknownLocaleError
+
 from redbot.core.data_manager import storage_type
 
-from . import (
-    __version__,
-    version_info as red_version_info,
-    checks,
-    commands,
-    errors,
-    i18n,
-)
+from . import __version__, checks, commands, errors, i18n, version_info as red_version_info
+from .commands.requires import PrivilegeLevel
 from .utils import AsyncIter
 from .utils._internal_utils import fetch_latest_red_version_info
-from .utils.predicates import MessagePredicate
 from .utils.chat_formatting import (
     box,
     escape,
@@ -44,7 +38,7 @@ from .utils.chat_formatting import (
     inline,
     pagify,
 )
-from .commands.requires import PrivilegeLevel
+from .utils.predicates import MessagePredicate
 
 _entities = {
     "*": "&midast;",

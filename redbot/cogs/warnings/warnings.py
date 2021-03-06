@@ -1,16 +1,16 @@
 import asyncio
 import contextlib
-from datetime import timezone
 from collections import namedtuple
 from copy import copy
-from typing import Union, Literal
+from datetime import timezone
+from typing import Literal, Union
 
 import discord
 
 from redbot.cogs.warnings.helpers import (
-    warning_points_add_check,
-    get_command_for_exceeded_points,
     get_command_for_dropping_points,
+    get_command_for_exceeded_points,
+    warning_points_add_check,
     warning_points_remove_check,
 )
 from redbot.core import Config, checks, commands, modlog
@@ -18,8 +18,7 @@ from redbot.core.bot import Red
 from redbot.core.commands import UserInputOptional
 from redbot.core.i18n import Translator, cog_i18n
 from redbot.core.utils.chat_formatting import pagify
-from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
-
+from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
 _ = Translator("Warnings", __file__)
 

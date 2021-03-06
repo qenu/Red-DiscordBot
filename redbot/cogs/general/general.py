@@ -1,21 +1,23 @@
 import datetime
 import time
-from enum import Enum
-from random import randint, choice
-from typing import Final
 import urllib.parse
+from enum import Enum
+from random import choice, randint
+from typing import Final
+
 import aiohttp
 import discord
+
 from redbot.core import commands
 from redbot.core.i18n import Translator, cog_i18n
-from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
 from redbot.core.utils.chat_formatting import (
     bold,
     escape,
-    italics,
     humanize_number,
     humanize_timedelta,
+    italics,
 )
+from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
 _ = T_ = Translator("General", __file__)
 

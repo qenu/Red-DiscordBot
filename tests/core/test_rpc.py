@@ -1,7 +1,7 @@
 import pytest
 
-from redbot.pytest.rpc import *
 from redbot.core.rpc import get_name
+from redbot.pytest.rpc import *
 
 
 def test_get_name(cog):

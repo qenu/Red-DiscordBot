@@ -10,14 +10,14 @@ import re
 from datetime import timedelta
 from typing import (
     TYPE_CHECKING,
+    Dict,
+    List,
+    Literal as Literal,
     Optional,
     Optional as NoParseOptional,
     Tuple,
-    List,
-    Dict,
     Type,
     TypeVar,
-    Literal as Literal,
     Union as UserInputOptional,
 )
 
@@ -26,7 +26,7 @@ from discord.ext import commands as dpy_commands
 from discord.ext.commands import BadArgument
 
 from ..i18n import Translator
-from ..utils.chat_formatting import humanize_timedelta, humanize_list
+from ..utils.chat_formatting import humanize_list, humanize_timedelta
 
 if TYPE_CHECKING:
     from .context import Context

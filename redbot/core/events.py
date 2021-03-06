@@ -1,39 +1,36 @@
 import asyncio
 import contextlib
+import logging
 import platform
 import sys
-import logging
 import traceback
 from datetime import datetime, timedelta
 
 import aiohttp
 import discord
 import pkg_resources
-from redbot.core import data_manager
+import rich
+from rich import box
+from rich.columns import Columns
+from rich.panel import Panel
+from rich.table import Table
+from rich.text import Text
 
-from redbot.core.commands import RedHelpFormatter, HelpSettings
-from redbot.core.i18n import (
-    Translator,
-    set_contextual_locales_from_guild,
-)
-from .utils import AsyncIter
+from redbot.core import data_manager
+from redbot.core.commands import HelpSettings, RedHelpFormatter
+from redbot.core.i18n import Translator, set_contextual_locales_from_guild
+
 from .. import __version__ as red_version, version_info as red_version_info
 from . import commands
 from .config import get_latest_confs
+from .utils import AsyncIter
 from .utils._internal_utils import (
-    fuzzy_command_search,
-    format_fuzzy_results,
     expected_version,
     fetch_latest_red_version_info,
+    format_fuzzy_results,
+    fuzzy_command_search,
 )
-from .utils.chat_formatting import inline, format_perms_list, humanize_timedelta
-
-import rich
-from rich import box
-from rich.table import Table
-from rich.columns import Columns
-from rich.panel import Panel
-from rich.text import Text
+from .utils.chat_formatting import format_perms_list, humanize_timedelta, inline
 
 log = logging.getLogger("red")
 

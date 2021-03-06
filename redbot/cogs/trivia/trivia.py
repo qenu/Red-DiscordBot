@@ -1,19 +1,19 @@
 """Module for Trivia cog."""
 import asyncio
+import io
 import pathlib
 from collections import Counter
 from typing import List, Literal
 
-import io
-import yaml
 import discord
+import yaml
 
-from redbot.core import Config, commands, checks
 from redbot.cogs.bank import is_owner_if_bank_global
+from redbot.core import Config, checks, commands
 from redbot.core.data_manager import cog_data_path
 from redbot.core.i18n import Translator, cog_i18n
 from redbot.core.utils import AsyncIter
-from redbot.core.utils.chat_formatting import box, pagify, bold
+from redbot.core.utils.chat_formatting import bold, box, pagify
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core.utils.predicates import MessagePredicate, ReactionPredicate
 

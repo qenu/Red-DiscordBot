@@ -1,10 +1,13 @@
 import asyncio
-import discord
-from datetime import datetime
-from redbot.core.utils.chat_formatting import pagify
 import io
 import weakref
+from datetime import datetime
 from typing import List, Optional
+
+import discord
+
+from redbot.core.utils.chat_formatting import pagify
+
 from .common_filters import filter_mass_mentions
 
 _instances = weakref.WeakValueDictionary({})

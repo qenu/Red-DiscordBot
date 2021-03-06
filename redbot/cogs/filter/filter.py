@@ -1,13 +1,14 @@
-import discord
 import re
 from datetime import timezone
-from typing import Union, Set, Literal
+from typing import Literal, Set, Union
 
-from redbot.core import checks, Config, modlog, commands
+import discord
+
+from redbot.core import Config, checks, commands, modlog
 from redbot.core.bot import Red
 from redbot.core.i18n import Translator, cog_i18n, set_contextual_locales_from_guild
 from redbot.core.utils import AsyncIter
-from redbot.core.utils.chat_formatting import pagify, humanize_list
+from redbot.core.utils.chat_formatting import humanize_list, pagify
 
 _ = Translator("Filter", __file__)
 

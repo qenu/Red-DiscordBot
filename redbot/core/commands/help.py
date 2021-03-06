@@ -30,19 +30,19 @@
 import abc
 import asyncio
 from collections import namedtuple
-from dataclasses import dataclass, asdict as dc_asdict
-from typing import Union, List, AsyncIterator, Iterable, cast
+from dataclasses import asdict as dc_asdict, dataclass
+from typing import AsyncIterator, Iterable, List, Union, cast
 
 import discord
 from discord.ext import commands as dpy_commands
 
-from . import commands
-from .context import Context
 from ..i18n import Translator
 from ..utils import menus
-from ..utils.mod import mass_purge
-from ..utils._internal_utils import fuzzy_command_search, format_fuzzy_results
+from ..utils._internal_utils import format_fuzzy_results, fuzzy_command_search
 from ..utils.chat_formatting import box, humanize_list, humanize_number, humanize_timedelta, pagify
+from ..utils.mod import mass_purge
+from . import commands
+from .context import Context
 
 __all__ = ["red_help", "RedHelpFormatter", "HelpSettings", "HelpFormatterABC"]
 

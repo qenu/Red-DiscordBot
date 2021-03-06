@@ -3,19 +3,19 @@ import asyncio
 import json
 import logging
 import os
-import sys
 import re
+import sys
 from copy import deepcopy
 from pathlib import Path
-from typing import Dict, Any, Optional, Union
+from typing import Any, Dict, Optional, Union
 
 import appdirs
 import click
 
-from redbot.core.cli import confirm
-from redbot.core.utils._internal_utils import safe_delete, create_backup as red_create_backup
 from redbot.core import config, data_manager, drivers
+from redbot.core.cli import confirm
 from redbot.core.drivers import BackendType
+from redbot.core.utils._internal_utils import create_backup as red_create_backup, safe_delete
 
 conversion_log = logging.getLogger("red.converter")
 

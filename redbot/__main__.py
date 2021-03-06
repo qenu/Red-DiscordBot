@@ -6,8 +6,6 @@ import getpass
 import json
 import logging
 import os
-import pip
-import pkg_resources
 import platform
 import shutil
 import signal
@@ -17,22 +15,24 @@ from copy import deepcopy
 from pathlib import Path
 
 import discord
+import pip
+import pkg_resources
 
 # Set the event loop policies here so any subsequent `new_event_loop()`
 # calls, in particular those as a result of the following imports,
 # return the correct loop object.
-from redbot import _update_event_loop_policy, __version__
+from redbot import __version__, _update_event_loop_policy
 
 _update_event_loop_policy()
 
 # these imports need to happen after the event loop policy is updated
 if True:  # noqa: E402
     import redbot.logging
-    from redbot.core.bot import Red, ExitCodes
-    from redbot.core.cli import interactive_config, confirm, parse_cli_flags
-    from redbot.setup import get_data_dir, get_name, save_config
     from redbot.core import data_manager, drivers
     from redbot.core._sharedlibdeprecation import SharedLibImportWarner
+    from redbot.core.bot import ExitCodes, Red
+    from redbot.core.cli import confirm, interactive_config, parse_cli_flags
+    from redbot.setup import get_data_dir, get_name, save_config
 
 
 log = logging.getLogger("red.main")

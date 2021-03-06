@@ -1,15 +1,16 @@
 from __future__ import annotations
+
 from typing import (
-    TypeVar,
-    Callable,
-    Awaitable,
-    Coroutine,
-    Union,
     TYPE_CHECKING,
-    List,
     Any,
+    Awaitable,
+    Callable,
+    Coroutine,
     Generator,
+    List,
     Protocol,
+    TypeVar,
+    Union,
     overload,
 )
 
@@ -34,7 +35,6 @@ if not TYPE_CHECKING:
 
 from ..i18n import Translator
 from .context import Context
-
 
 _ = Translator("nah", __file__)
 

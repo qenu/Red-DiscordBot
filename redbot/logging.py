@@ -3,24 +3,14 @@ import logging.handlers
 import pathlib
 import re
 import sys
-
-from typing import List, Tuple, Optional
-from logging import LogRecord
 from datetime import datetime  # This clearly never leads to confusion...
+from logging import LogRecord
 from os import isatty
+from typing import List, Optional, Tuple
 
 import rich
 from pygments.styles.monokai import MonokaiStyle
-from pygments.token import (
-    Comment,
-    Error,
-    Keyword,
-    Name,
-    Number,
-    Operator,
-    String,
-    Token,
-)
+from pygments.token import Comment, Error, Keyword, Name, Number, Operator, String, Token
 from rich._log_render import LogRender  # DEP-WARN
 from rich.console import render_group
 from rich.containers import Renderables
@@ -32,7 +22,6 @@ from rich.table import Table
 from rich.text import Text
 from rich.theme import Theme
 from rich.traceback import PathHighlighter, Traceback
-
 
 MAX_OLD_LOGS = 8
 

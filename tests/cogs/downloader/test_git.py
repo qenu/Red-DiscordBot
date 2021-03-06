@@ -1,14 +1,14 @@
-from pathlib import Path
 import subprocess as sp
+from pathlib import Path
 
 import pytest
 
 from redbot.cogs.downloader.repo_manager import ProcessFormatter, Repo
 from redbot.pytest.downloader import (
+    _session_git_repo,
     cloned_git_repo,
     git_repo,
     git_repo_with_remote,
-    _session_git_repo,
 )
 
 

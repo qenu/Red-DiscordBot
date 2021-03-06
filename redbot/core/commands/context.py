@@ -4,17 +4,18 @@ import asyncio
 import contextlib
 import os
 import re
-from typing import Iterable, List, Union, Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING, Iterable, List, Optional, Union
+
 import discord
 from discord.ext.commands import Context as DPYContext
 
-from .requires import PermState
 from ..utils.chat_formatting import box
 from ..utils.predicates import MessagePredicate
+from .requires import PermState
 
 if TYPE_CHECKING:
-    from .commands import Command
     from ..bot import Red
+    from .commands import Command
 
 TICK = "\N{WHITE HEAVY CHECK MARK}"
 

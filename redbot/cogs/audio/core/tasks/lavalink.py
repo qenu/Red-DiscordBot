@@ -6,6 +6,7 @@ import lavalink
 
 from redbot.core import data_manager
 from redbot.core.i18n import Translator
+
 from ...errors import LavalinkDownloadFailed
 from ...manager import ServerManager
 from ..abc import MixinMeta

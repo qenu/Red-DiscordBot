@@ -5,7 +5,6 @@ import ntpath
 import os
 import posixpath
 import re
-
 from pathlib import Path, PosixPath, WindowsPath
 from typing import (
     AsyncIterator,

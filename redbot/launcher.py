@@ -3,14 +3,14 @@
 # no new features will be added to this file
 # issues in this file are to be met with removal, not with fixes.
 
+import argparse
 import os
 import subprocess
 import sys
-import argparse
 
 from redbot import MIN_PYTHON_VERSION
-from redbot.setup import load_existing_config
 from redbot.core import __version__
+from redbot.setup import load_existing_config
 
 INTERACTIVE_MODE = not len(sys.argv) > 1  # CLI flags = non-interactive
 

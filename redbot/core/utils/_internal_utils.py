@@ -11,23 +11,23 @@ import tarfile
 from datetime import datetime
 from pathlib import Path
 from typing import (
+    TYPE_CHECKING,
     AsyncIterator,
     Awaitable,
     Callable,
     Iterator,
     List,
     Optional,
-    Union,
-    TYPE_CHECKING,
     Tuple,
+    Union,
 )
 
 import aiohttp
 import discord
 import pkg_resources
 from fuzzywuzzy import fuzz, process
-from redbot import VersionInfo
 
+from redbot import VersionInfo
 from redbot.core import data_manager
 from redbot.core.utils.chat_formatting import box
 

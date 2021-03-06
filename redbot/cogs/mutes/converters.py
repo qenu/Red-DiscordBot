@@ -1,9 +1,10 @@
 import logging
 import re
-from typing import Union, Dict
 from datetime import timedelta
+from typing import Dict, Union
 
 from discord.ext.commands.converter import Converter
+
 from redbot.core import commands
 
 log = logging.getLogger("red.cogs.mutes")
