@@ -11,15 +11,24 @@ if exist "%~dp0.venv\" (
 goto %1
 
 :reformat
+echo - black:
 "%VENV_PYTHON%" -m black "%~dp0."
+echo - isort:
+"%VENV_PYTHON%" -m isort "%~dp0."
 goto:eof
 
 :stylecheck
+echo - black:
 "%VENV_PYTHON%" -m black --check "%~dp0."
+if %errorlevel% neq 0 (
+    goto:eof
+)
+echo - isort:
+"%VENV_PYTHON%" -m isort --check "%~dp0."
 goto:eof
 
 :stylediff
-"%VENV_PYTHON%" -m black --check --diff "%~dp0."
+"%VENV_PYTHON%" "%~dp0tools\stylediff.py"
 goto:eof
 
 :newenv

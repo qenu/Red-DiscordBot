@@ -32,10 +32,12 @@ export HELP_BODY
 # Python Code Style
 reformat:
 	$(VENV_PYTHON) -m black $(ROOT_DIR)
+	$(VENV_PYTHON) -m isort $(ROOT_DIR)
 stylecheck:
 	$(VENV_PYTHON) -m black --check $(ROOT_DIR)
+	$(VENV_PYTHON) -m isort --check $(ROOT_DIR)
 stylediff:
-	$(VENV_PYTHON) -m black --check --diff $(ROOT_DIR)
+	$(VENV_PYTHON) tools/stylediff.py
 
 # Translations
 gettext:

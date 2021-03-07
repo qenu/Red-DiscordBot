@@ -41,16 +41,25 @@ param (
 )
 
 function reformat() {
+    Write-Host "- black:"
     & $script:venvPython -m black $PSScriptRoot
+    Write-Host "- isort:"
+    & $script:venvPython -m isort $PSScriptRoot
 }
 
 function stylecheck() {
+    Write-Host "- black:"
     & $script:venvPython -m black --check $PSScriptRoot
+    if ($LASTEXITCODE -ne 0) {
+        Exit $LASTEXITCODE
+    }
+    Write-Host "- isort:"
+    & $script:venvPython -m isort --check $PSScriptRoot
     Exit $LASTEXITCODE
 }
 
 function stylediff() {
-    & $script:venvPython -m black --check --diff $PSScriptRoot
+    & $script:venvPython $PSScriptRoot\tools\stylediff.py
     Exit $LASTEXITCODE
 }
 
