@@ -127,7 +127,7 @@ async def _init(bot: Red):
             else:
                 if entry:
                     if entry.user.id != guild.me.id:
-                        # Don't create modlog entires for the bot's own bans, cogs do this.
+                        # Don't create modlog entries for the bot's own bans, cogs do this.
                         mod, reason = entry.user, entry.reason
                         date = entry.created_at.replace(tzinfo=timezone.utc)
                         await create_case(_bot_ref, guild, date, "ban", member, mod, reason)
@@ -164,7 +164,7 @@ async def _init(bot: Red):
             else:
                 if entry:
                     if entry.user.id != guild.me.id:
-                        # Don't create modlog entires for the bot's own unbans, cogs do this.
+                        # Don't create modlog entries for the bot's own unbans, cogs do this.
                         mod, reason = entry.user, entry.reason
                         date = entry.created_at.replace(tzinfo=timezone.utc)
                         await create_case(_bot_ref, guild, date, "unban", user, mod, reason)

@@ -84,7 +84,7 @@ class Admin(commands.Cog):
         self.__current_announcer = None
         self._ready = asyncio.Event()
         asyncio.create_task(self.handle_migrations())
-        # As this is a data migration, don't store this for cancelation.
+        # As this is a data migration, don't store this for cancellation.
 
     async def cog_before_invoke(self, ctx: commands.Context):
         await self._ready.wait()

@@ -811,7 +811,7 @@ class Streams(commands.Cog):
                                 await role.edit(mentionable=False)
                         await self.save_streams()
             except Exception as e:
-                log.error("An error has occured with Streams. Please report it.", exc_info=e)
+                log.error("An error has occurred with Streams. Please report it.", exc_info=e)
 
     async def _get_mention_str(
         self, guild: discord.Guild, channel: discord.TextChannel

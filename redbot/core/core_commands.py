@@ -3712,5 +3712,5 @@ class LicenseCooldownMapping(commands.CooldownMapping):
 
 # DEP-WARN: command objects should store a single cooldown mapping as `._buckets`
 Core.license_info_command._buckets = LicenseCooldownMapping.from_cooldown(
-    1, 180, commands.BucketType.member  # pick a random bucket,it wont get used.
+    1, 180, commands.BucketType.member  # pick a random bucket,it won't get used.
 )
