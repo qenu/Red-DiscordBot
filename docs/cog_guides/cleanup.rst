@@ -44,7 +44,7 @@ cleanup
 
 .. code-block:: none
 
-    [p]cleanup 
+    [p]cleanup
 
 **Description**
 

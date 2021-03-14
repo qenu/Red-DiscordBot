@@ -19,8 +19,8 @@ find detailed docs about usage and commands.
 Usage
 -----
 
-This cog provides commands to check if a channel 
-on a supported streaming service is live as well 
+This cog provides commands to check if a channel
+on a supported streaming service is live as well
 as to create and manage alerts for channels.
 
 Supported streaming services are:
@@ -30,9 +30,9 @@ Supported streaming services are:
 - Smashcast
 - Picarto
 
-Youtube and Twitch both require setting authentication 
-details for commands for those services to work. See 
-:ref:`[p]streamset twitchtoken <streams-command-streamset-twitchtoken>` and 
+Youtube and Twitch both require setting authentication
+details for commands for those services to work. See
+:ref:`[p]streamset twitchtoken <streams-command-streamset-twitchtoken>` and
 :ref:`[p]streamset youtubekey <streams-command-streamset-youtubekey>`
 for more information.
 
@@ -51,7 +51,7 @@ streamset
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset
 
 **Description**
@@ -67,12 +67,12 @@ streamset autodelete
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset autodelete <on_off>
 
 **Description**
 
-Toggles automatic deletion of stream alerts when the 
+Toggles automatic deletion of stream alerts when the
 stream goes offline.
 
 **Arguments**
@@ -88,7 +88,7 @@ streamset ignorereruns
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset ignorereruns
 
 **Description**
@@ -106,7 +106,7 @@ streamset mention
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset mention
 
 **Description**
@@ -122,7 +122,7 @@ streamset mention all
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset mention all
 
 **Description**
@@ -138,7 +138,7 @@ streamset mention online
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset mention online
 
 **Description**
@@ -154,7 +154,7 @@ streamset mention role
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset mention role <role>
 
 **Description**
@@ -174,7 +174,7 @@ streamset message
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset message
 
 **Description**
@@ -190,7 +190,7 @@ streamset message mention
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset message mention <message>
 
 **Description**
@@ -216,7 +216,7 @@ streamset message nomention
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset message nomention <message>
 
 **Description**
@@ -240,7 +240,7 @@ streamset message clear
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset message clear
 
 **Description**
@@ -256,7 +256,7 @@ streamset timer
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset timer <refresh_timer>
 
 **Description**
@@ -278,7 +278,7 @@ streamset youtubekey
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset youtubekey
 
 **Description**
@@ -298,7 +298,7 @@ To get one, do the following:
 
 4. Copy your API key and run the command ``[p]set api youtube api_key <your_api_key_here>``
 
-.. attention:: These tokens are sensitive and should only be 
+.. attention:: These tokens are sensitive and should only be
                used in a private channel or in DM with the bot.
 
 .. _streams-command-streamset-twitchtoken:
@@ -310,7 +310,7 @@ streamset twitchtoken
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamset twitchtoken
 
 **Description**
@@ -330,7 +330,7 @@ To set the Twitch API tokens, follow these steps:
 5. Copy your client ID and your client secret into:
 ``[p]set api twitch client_id <your_client_id_here> client_secret <your_client_secret_here>``
 
-.. attention:: These tokens are sensitive and should only be 
+.. attention:: These tokens are sensitive and should only be
                used in a private channel or in DM with the bot.
 
 .. _streams-command-picarto:
@@ -362,7 +362,7 @@ smashcast
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]smashcast <channel_name>
 
 **Description**
@@ -402,7 +402,7 @@ youtubestream
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]youtubestream <channel_id_or_name>
 
 **Description**
@@ -422,7 +422,7 @@ streamalert
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamalert
 
 **Description**
@@ -438,7 +438,7 @@ streamalert list
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamalert list
 
 **Description**
@@ -454,12 +454,12 @@ streamalert picarto
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamalert picarto <channel_name>
 
 **Description**
 
-Toggle alerts in the current channel for the 
+Toggle alerts in the current channel for the
 specified Picarto channel.
 
 **Arguments**
@@ -475,12 +475,12 @@ streamalert smashcast
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamalert smashcast <channel_name>
 
 **Description**
 
-Toggle alerts in the current channel for the 
+Toggle alerts in the current channel for the
 specified Smashcast channel.
 
 **Arguments**
@@ -496,12 +496,12 @@ streamalert twitch channel
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamalert twitch channel <channel_name>
 
 **Description**
 
-Toggle alerts in the current channel for the 
+Toggle alerts in the current channel for the
 specified Twitch channel.
 
 **Arguments**
@@ -517,12 +517,12 @@ streamalert youtube
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamalert youtube <channel_name>
 
 **Description**
 
-Toggle alerts in the current channel for the 
+Toggle alerts in the current channel for the
 specified Picarto channel.
 
 **Arguments**
@@ -538,7 +538,7 @@ streamalert stop
 **Syntax**
 
 .. code-block:: none
-    
+
     [p]streamalert stop [disable-all=No]
 
 **Description**
@@ -547,7 +547,7 @@ Disable all stream alerts for this channel or server.
 
 **Arguments**
 
-* ``[disable-all]``: Defaults to ``no``. If this is set to ``yes``, all 
-  stream alerts in the current server will be disabled. 
-  If ``no`` or unspecified, all stream alerts in the 
-  current channel will be stopped. 
+* ``[disable-all]``: Defaults to ``no``. If this is set to ``yes``, all
+  stream alerts in the current server will be disabled.
+  If ``no`` or unspecified, all stream alerts in the
+  current channel will be stopped.

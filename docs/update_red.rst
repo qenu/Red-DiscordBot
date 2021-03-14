@@ -61,7 +61,7 @@ If you have Red 3.2.0 or newer, you can upgrade by following these 4 easy steps:
 1. Shut your bot down.
 
 2. Activate your virtual environment.
-  
+
     If you used ``venv`` for your virtual environment, use:
 
     .. code:: none

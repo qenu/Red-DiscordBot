@@ -38,7 +38,7 @@ bank
 
 .. code-block:: none
 
-    [p]bank 
+    [p]bank
 
 **Description**
 
@@ -80,7 +80,7 @@ bank prune
 
 .. code-block:: none
 
-    [p]bank prune 
+    [p]bank prune
 
 **Description**
 
@@ -263,7 +263,7 @@ economyset
 
 .. code-block:: none
 
-    [p]economyset 
+    [p]economyset
 
 **Description**
 
@@ -376,7 +376,7 @@ economyset showsettings
 
 .. code-block:: none
 
-    [p]economyset showsettings 
+    [p]economyset showsettings
 
 **Description**
 
@@ -491,7 +491,7 @@ payday
 
 .. code-block:: none
 
-    [p]payday 
+    [p]payday
 
 **Description**
 
@@ -509,7 +509,7 @@ payouts
 
 .. code-block:: none
 
-    [p]payouts 
+    [p]payouts
 
 **Description**
 

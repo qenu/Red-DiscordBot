@@ -41,14 +41,13 @@ def test_bordered_asymmetrical():
 
 
 def test_bordered_asymmetrical_2():
-    expected = textwrap.dedent(
-        """\
-    ┌──────────────┐    ┌─────────────┐
-    │one           │    │five         │
-    │two           │    │six          │
-    │three         │    └─────────────┘
-    │four          │                   
-    └──────────────┘                   """
+    expected = (
+        "┌──────────────┐    ┌─────────────┐\n"
+        "│one           │    │five         │\n"
+        "│two           │    │six          │\n"
+        "│three         │    └─────────────┘\n"
+        "│four          │                   \n"
+        "└──────────────┘                   "
     )
     col1, col2 = ["one", "two", "three", "four"], ["five", "six"]
     assert chat_formatting.bordered(col1, col2) == expected
