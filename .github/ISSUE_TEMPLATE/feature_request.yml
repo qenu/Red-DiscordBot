@@ -45,4 +45,3 @@ body:
         - Note any restrictions on who can use the command or where it can be used
   validations:
     required: true
-
