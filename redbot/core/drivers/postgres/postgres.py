@@ -175,7 +175,7 @@ class PostgresDriver(BaseDriver):
     ) -> Union[int, float]:
         try:
             return await self._execute(
-                f"SELECT red_config.inc($1, $2, $3)",
+                "SELECT red_config.inc($1, $2, $3)",
                 encode_identifier_data(identifier_data),
                 value,
                 default,
@@ -240,7 +240,7 @@ class PostgresDriver(BaseDriver):
                     break
         if drop_db is True:
             storage_details = data_manager.storage_details()
-            await cls._pool.execute(f"DROP DATABASE $1", storage_details["database"])
+            await cls._pool.execute("DROP DATABASE $1", storage_details["database"])
         else:
             with DROP_DDL_SCRIPT_PATH.open() as fs:
                 await cls._pool.execute(fs.read())

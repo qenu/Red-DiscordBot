@@ -6,7 +6,7 @@ from random import choice
 from string import ascii_letters
 from datetime import datetime, timedelta, timezone
 import xml.etree.ElementTree as ET
-from typing import ClassVar, Optional, List, Tuple
+from typing import ClassVar, Optional, List
 
 import aiohttp
 import discord
@@ -45,7 +45,6 @@ def rnd(url):
 
 def get_video_ids_from_feed(feed):
     root = ET.fromstring(feed)
-    rss_video_ids = []
     for child in root.iter("{http://www.w3.org/2005/Atom}entry"):
         for i in child.iter("{http://www.youtube.com/xml/schemas/2015}videoId"):
             yield i.text

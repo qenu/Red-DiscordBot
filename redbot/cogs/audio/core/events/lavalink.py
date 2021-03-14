@@ -104,8 +104,8 @@ class LavalinkEvents(MixinMeta, metaclass=CompositeMetaClass):
                             notify_channel,
                             title=_("Unable to Get Track"),
                             description=_(
-                                "I'm unable to get a track from Lavalink at the moment, try again in a few "
-                                "minutes."
+                                "I'm unable to get a track from Lavalink at the moment,"
+                                " try again in a few minutes."
                             ),
                         )
                     return
@@ -225,7 +225,8 @@ class LavalinkEvents(MixinMeta, metaclass=CompositeMetaClass):
                             colour=await self.bot.get_embed_color(message_channel),
                             title=_("Track Stuck"),
                             description=_(
-                                "Playback of the song has stopped due to an unexcepted error.\n{error}"
+                                "Playback of the song has stopped due to an unexcepted error.\n"
+                                "{error}"
                             ).format(error=description),
                         )
                     else:

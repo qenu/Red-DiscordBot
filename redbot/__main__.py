@@ -15,7 +15,6 @@ import sys
 from argparse import Namespace
 from copy import deepcopy
 from pathlib import Path
-from typing import NoReturn
 
 import discord
 
@@ -26,12 +25,14 @@ from redbot import _update_event_loop_policy, __version__
 
 _update_event_loop_policy()
 
-import redbot.logging
-from redbot.core.bot import Red, ExitCodes
-from redbot.core.cli import interactive_config, confirm, parse_cli_flags
-from redbot.setup import get_data_dir, get_name, save_config
-from redbot.core import data_manager, drivers
-from redbot.core._sharedlibdeprecation import SharedLibImportWarner
+# these imports need to happen after the event loop policy is updated
+if True:  # noqa: E402
+    import redbot.logging
+    from redbot.core.bot import Red, ExitCodes
+    from redbot.core.cli import interactive_config, confirm, parse_cli_flags
+    from redbot.setup import get_data_dir, get_name, save_config
+    from redbot.core import data_manager, drivers
+    from redbot.core._sharedlibdeprecation import SharedLibImportWarner
 
 
 log = logging.getLogger("red.main")
@@ -71,7 +72,6 @@ def debug_info():
 
     IS_WINDOWS = os.name == "nt"
     IS_MAC = sys.platform == "darwin"
-    IS_LINUX = sys.platform == "linux"
 
     pyver = sys.version
     pipver = pip.__version__
@@ -398,7 +398,8 @@ async def run_bot(red: Red, cli_flags: Namespace) -> None:
         print(
             "Red requires all Privileged Intents to be enabled.\n"
             "You can find out how to enable Privileged Intents with this guide:\n"
-            "https://docs.discord.red/en/stable/bot_application_guide.html#enabling-privileged-intents"
+            "https://docs.discord.red"
+            "/en/stable/bot_application_guide.html#enabling-privileged-intents"
         )
         sys.exit(1)
 
@@ -488,8 +489,8 @@ def main():
         if cli_flags.no_instance:
             print(
                 "\033[1m"
-                "Warning: The data will be placed in a temporary folder and removed on next system "
-                "reboot."
+                "Warning: The data will be placed in a temporary folder and removed on next system"
+                " reboot."
                 "\033[0m"
             )
             cli_flags.instance_name = "temporary_red"

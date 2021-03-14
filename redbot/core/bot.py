@@ -7,7 +7,6 @@ import shutil
 import sys
 import contextlib
 import weakref
-import functools
 from collections import namedtuple
 from datetime import datetime
 from enum import IntEnum
@@ -484,7 +483,8 @@ class RedBase(
     @uptime.setter
     def uptime(self, value) -> NoReturn:
         raise RuntimeError(
-            "Hey, we're cool with sharing info about the uptime, but don't try and assign to it please."
+            "Hey, we're cool with sharing info about the uptime,"
+            " but don't try and assign to it please."
         )
 
     @property
@@ -1303,7 +1303,7 @@ class RedBase(
                 await lib.setup(self)
             else:
                 lib.setup(self)
-        except Exception as e:
+        except Exception:
             self._remove_module_references(lib.__name__)
             self._call_module_finalizers(lib, name)
             raise
@@ -1770,7 +1770,7 @@ class RedBase(
             except commands.commands.RedUnhandledAPI:
                 log.warning(f"{stype}.{sname} did not handle data deletion ")
                 failures["unhandled"].append(sname)
-            except Exception as exc:
+            except Exception:
                 log.exception(f"{stype}.{sname} errored when handling data deletion ")
                 failures[stype].append(sname)
 

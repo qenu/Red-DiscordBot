@@ -20,7 +20,6 @@ from typing import (
     TypeVar,
     Union,
     Generator,
-    Coroutine,
 )
 
 from discord.utils import maybe_coroutine
@@ -38,6 +37,7 @@ log = logging.getLogger("red.core.utils")
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")
+
 
 # Benchmarked to be the fastest method.
 def deduplicate_iterables(*iterables):
@@ -234,8 +234,6 @@ def bounded_gather(
     TypeError
         When invalid parameters are passed
     """
-    loop = asyncio.get_running_loop()
-
     if semaphore is None:
         if not isinstance(limit, int) or limit <= 0:
             raise TypeError("limit must be an int > 0")

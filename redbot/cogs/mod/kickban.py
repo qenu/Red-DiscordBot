@@ -6,7 +6,6 @@ from typing import Dict, List, Optional, Tuple, Union
 
 import discord
 from redbot.core import commands, i18n, checks, modlog
-from redbot.core.commands import UserInputOptional
 from redbot.core.utils import AsyncIter
 from redbot.core.utils.chat_formatting import (
     pagify,
@@ -418,7 +417,8 @@ class KickBanMixin(MixinMeta):
                 text += "\n".join(errors.values())
             if upgrades:
                 text += _(
-                    "\nFollowing user IDs have been upgraded from a temporary to a permanent ban:\n"
+                    "\nFollowing user IDs have been upgraded"
+                    " from a temporary to a permanent ban:\n"
                 )
                 text += humanize_list(upgrades)
 
@@ -454,7 +454,8 @@ class KickBanMixin(MixinMeta):
             for user_id in user_ids:
                 if entry.user.id == user_id:
                     if user_id in tempbans:
-                        # We need to check if a user is tempbanned here because otherwise they won't be processed later on.
+                        # We need to check if a user is tempbanned here
+                        # because otherwise they won't be processed later on.
                         continue
                     else:
                         errors[user_id] = _("User with ID {user_id} is already banned.").format(
@@ -701,18 +702,22 @@ class KickBanMixin(MixinMeta):
             return
         except discord.HTTPException:
             log.exception(
-                "{}({}) attempted to softban {}({}), but an error occurred trying to ban them.".format(
-                    author.name, author.id, user.name, user.id
-                )
+                "%s(%s) attempted to softban %s(%s), but an error occurred trying to ban them.",
+                author.name,
+                author.id,
+                user.name,
+                user.id,
             )
             return
         try:
             await guild.unban(user)
         except discord.HTTPException:
             log.exception(
-                "{}({}) attempted to softban {}({}), but an error occurred trying to unban them.".format(
-                    author.name, author.id, user.name, user.id
-                )
+                "%s(%s) attempted to softban %s(%s), but an error occurred trying to unban them.",
+                author.name,
+                author.id,
+                user.name,
+                user.id,
             )
             return
         else:

@@ -148,8 +148,8 @@ class Streams(commands.Cog):
                     "5. Copy your client ID and your client secret into:\n"
                     "{command}"
                     "\n\n"
-                    "Note: These tokens are sensitive and should only be used in a private channel "
-                    "or in DM with the bot."
+                    "Note: These tokens are sensitive and should only be used in a private channel"
+                    " or in DM with the bot."
                 ).format(
                     command="`[p]set api twitch client_id {} client_secret {}`".format(
                         _("<your_client_id_here>"), _("<your_client_secret_here>")

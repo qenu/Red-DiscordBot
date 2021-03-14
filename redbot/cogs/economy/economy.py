@@ -2,9 +2,10 @@ import calendar
 import logging
 import random
 from collections import defaultdict, deque, namedtuple
+from datetime import timedelta
 from enum import Enum
 from math import ceil
-from typing import cast, Iterable, Union, Literal
+from typing import TYPE_CHECKING, cast, Iterable, Union, Literal
 
 import discord
 
@@ -114,6 +115,12 @@ class SetParser:
             self.operation = "set"
         else:
             raise RuntimeError
+
+
+if TYPE_CHECKING:
+    Duration = timedelta
+else:
+    Duration = TimedeltaConverter(default_unit="seconds")
 
 
 @cog_i18n(_)
@@ -440,7 +447,8 @@ class Economy(commands.Cog):
         credits_name = await bank.get_currency_name(ctx.guild)
         if await bank.is_global():  # Role payouts will not be used
 
-            # Gets the latest time the user used the command successfully and adds the global payday time
+            # Gets the latest time the user used the command successfully
+            # and adds the global payday time
             next_payday = (
                 await self.config.user(author).next_payday() + await self.config.PAYDAY_TIME()
             )
@@ -764,7 +772,8 @@ class Economy(commands.Cog):
                 await channel.send(
                     _(
                         "You've reached the maximum amount of {currency}! "
-                        "Please spend some more \N{GRIMACING FACE}\n{old_balance} -> {new_balance}!"
+                        "Please spend some more \N{GRIMACING FACE}\n"
+                        "{old_balance} -> {new_balance}!"
                     ).format(
                         currency=await bank.get_currency_name(getattr(channel, "guild", None)),
                         old_balance=humanize_number(then),
@@ -905,9 +914,7 @@ class Economy(commands.Cog):
         )
 
     @economyset.command()
-    async def slottime(
-        self, ctx: commands.Context, *, duration: TimedeltaConverter(default_unit="seconds")
-    ):
+    async def slottime(self, ctx: commands.Context, *, duration: Duration):
         """Set the cooldown for the slot machine.
 
         Examples:
@@ -928,9 +935,7 @@ class Economy(commands.Cog):
         await ctx.send(_("Cooldown is now {num} seconds.").format(num=seconds))
 
     @economyset.command()
-    async def paydaytime(
-        self, ctx: commands.Context, *, duration: TimedeltaConverter(default_unit="seconds")
-    ):
+    async def paydaytime(self, ctx: commands.Context, *, duration: Duration):
         """Set the cooldown for the payday command.
 
         Examples:

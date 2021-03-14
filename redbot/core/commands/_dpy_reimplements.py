@@ -1,13 +1,10 @@
 from __future__ import annotations
-import inspect
-import functools
 from typing import (
     TypeVar,
     Callable,
     Awaitable,
     Coroutine,
     Union,
-    Type,
     TYPE_CHECKING,
     List,
     Any,
@@ -37,7 +34,6 @@ if not TYPE_CHECKING:
 
 from ..i18n import Translator
 from .context import Context
-from .commands import Command
 
 
 _ = Translator("nah", __file__)
@@ -87,37 +83,39 @@ class CheckDecorator(Protocol):
 
 if TYPE_CHECKING:
 
-    def check(predicate: CheckType) -> CheckDecorator:
+    def check(predicate: CheckType) -> CheckDecorator:  # noqa: F811
         ...
 
-    def guild_only() -> CheckDecorator:
+    def guild_only() -> CheckDecorator:  # noqa: F811
         ...
 
-    def dm_only() -> CheckDecorator:
+    def dm_only() -> CheckDecorator:  # noqa: F811
         ...
 
-    def is_nsfw() -> CheckDecorator:
+    def is_nsfw() -> CheckDecorator:  # noqa: F811
         ...
 
-    def has_role() -> CheckDecorator:
+    def has_role() -> CheckDecorator:  # noqa: F811
         ...
 
-    def has_any_role() -> CheckDecorator:
+    def has_any_role() -> CheckDecorator:  # noqa: F811
         ...
 
-    def bot_has_role() -> CheckDecorator:
+    def bot_has_role() -> CheckDecorator:  # noqa: F811
         ...
 
-    def bot_has_any_role() -> CheckDecorator:
+    def bot_has_any_role() -> CheckDecorator:  # noqa: F811
         ...
 
-    def cooldown(rate: int, per: float, type: dpy_commands.BucketType = ...) -> Callable[[_F], _F]:
+    def cooldown(  # noqa: F811
+        rate: int, per: float, type: dpy_commands.BucketType = ...
+    ) -> Callable[[_F], _F]:
         ...
 
-    def before_invoke(coro: InvokeHook) -> Callable[[_F], _F]:
+    def before_invoke(coro: InvokeHook) -> Callable[[_F], _F]:  # noqa: F811
         ...
 
-    def after_invoke(coro: InvokeHook) -> Callable[[_F], _F]:
+    def after_invoke(coro: InvokeHook) -> Callable[[_F], _F]:  # noqa: F811
         ...
 
 

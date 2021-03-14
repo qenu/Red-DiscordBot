@@ -11,7 +11,6 @@ import re
 import functools
 import weakref
 from typing import (
-    Any,
     Awaitable,
     Callable,
     Dict,
@@ -22,7 +21,6 @@ from typing import (
     Union,
     MutableMapping,
     TYPE_CHECKING,
-    cast,
 )
 
 import discord
@@ -301,7 +299,8 @@ class Command(CogCommandMixin, DPYCommand):
             for name in (self.name, *self.aliases):
                 if name in RESERVED_COMMAND_NAMES:
                     raise RuntimeError(
-                        f"The name `{name}` cannot be set as a command name. It is reserved for internal use."
+                        f"The name `{name}` cannot be set as a command name."
+                        " It is reserved for internal use."
                     )
         if len(self.qualified_name) > 60:
             raise RuntimeError(
@@ -497,7 +496,7 @@ class Command(CogCommandMixin, DPYCommand):
                 await self._parse_arguments(ctx)
 
             await self.call_before_hooks(ctx)
-        except:
+        except:  # noqa: E722
             if self._max_concurrency is not None:
                 await self._max_concurrency.release(ctx)
             raise

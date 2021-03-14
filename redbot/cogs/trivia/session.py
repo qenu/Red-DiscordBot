@@ -6,7 +6,7 @@ from collections import Counter
 import discord
 from redbot.core import bank, errors
 from redbot.core.i18n import Translator
-from redbot.core.utils.chat_formatting import box, bold, humanize_list, humanize_number
+from redbot.core.utils.chat_formatting import box, bold, humanize_list
 from redbot.core.utils.common_filters import normalize_smartquotes
 from .log import LOG
 
@@ -119,7 +119,8 @@ class TriviaSession:
             asyncio.create_task(
                 self.ctx.send(
                     _(
-                        "An unexpected error occurred in the trivia session.\nCheck your console or logs for details."
+                        "An unexpected error occurred in the trivia session.\n"
+                        "Check your console or logs for details."
                     )
                 )
             )

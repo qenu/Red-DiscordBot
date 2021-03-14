@@ -10,7 +10,6 @@ import re
 from datetime import timedelta
 from typing import (
     TYPE_CHECKING,
-    Generic,
     Optional,
     Optional as NoParseOptional,
     Tuple,
@@ -19,7 +18,6 @@ from typing import (
     Type,
     TypeVar,
     Literal as Literal,
-    Any,
     Union as UserInputOptional,
 )
 
@@ -335,7 +333,7 @@ else:
 
 if not TYPE_CHECKING:
 
-    class NoParseOptional:
+    class NoParseOptional:  # noqa: F811
         """
         This can be used instead of `typing.Optional`
         to avoid discord.py special casing the conversion behavior.
@@ -362,12 +360,12 @@ if not TYPE_CHECKING:
     #:
     #: .. warning::
     #:    This converter class is still provisional.
-    UserInputOptional = Optional
+    UserInputOptional = Optional  # noqa: F811
 
 
 if not TYPE_CHECKING:
 
-    class Literal(dpy_commands.Converter):
+    class Literal(dpy_commands.Converter):  # noqa: F811
         """
         This can be used as a converter for `typing.Literal`.
 

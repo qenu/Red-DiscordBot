@@ -1171,7 +1171,8 @@ class Downloader(commands.Cog):
                             )
                         else:
                             message += _(
-                                "Cogs from provided repo are already up to date with this revision."
+                                "Cogs from provided repo are already up to date"
+                                " with this revision."
                             )
                     else:
                         if cogs:

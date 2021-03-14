@@ -1,4 +1,3 @@
-import discord
 from redbot.core.utils.chat_formatting import box, humanize_number
 
 from redbot.core import checks, bank, commands

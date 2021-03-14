@@ -202,5 +202,7 @@ _warnings.filterwarnings("default", category=DeprecationWarning)
 if "--debug" not in _sys.argv:
     # DEP-WARN
     # Individual warnings - tracked in https://github.com/Cog-Creators/Red-DiscordBot/issues/3529
-    # DeprecationWarning: an integer is required (got type float).  Implicit conversion to integers using __int__ is deprecated, and may be removed in a future version of Python.
+    # DeprecationWarning: an integer is required (got type float).
+    #   Implicit conversion to integers using __int__ is deprecated,
+    #   and may be removed in a future version of Python.
     _warnings.filterwarnings("ignore", category=DeprecationWarning, module="importlib", lineno=219)

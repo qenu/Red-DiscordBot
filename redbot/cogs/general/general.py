@@ -307,7 +307,8 @@ class General(commands.Cog):
                 if ctx.bot.shard_count > 1
                 else ""
             )
-            # Logic from: https://github.com/TrustyJAID/Trusty-cogs/blob/master/serverstats/serverstats.py#L159
+            # Logic from:
+            # https://github.com/TrustyJAID/Trusty-cogs/blob/master/serverstats/serverstats.py#L159
             online_stats = {
                 _("Humans: "): lambda x: not x.bot,
                 _(" • Bots: "): lambda x: x.bot,
@@ -430,7 +431,11 @@ class General(commands.Cog):
             data.add_field(
                 name=_("Utility:"),
                 value=_(
-                    "Owner: {owner}\nVoice region: {region}\nVerif. level: {verif}\nServer ID: {id}{shard_info}"
+                    "Owner: {owner}\n"
+                    "Voice region: {region}\n"
+                    "Verif. level: {verif}\n"
+                    "Server ID: {id}"
+                    "{shard_info}"
                 ).format(
                     owner=bold(str(guild.owner)),
                     region=f"**{vc_regions.get(str(guild.region)) or str(guild.region)}**",
@@ -443,7 +448,10 @@ class General(commands.Cog):
             data.add_field(
                 name=_("Misc:"),
                 value=_(
-                    "AFK channel: {afk_chan}\nAFK timeout: {afk_timeout}\nCustom emojis: {emoji_count}\nRoles: {role_count}"
+                    "AFK channel: {afk_chan}\n"
+                    "AFK timeout: {afk_timeout}\n"
+                    "Custom emojis: {emoji_count}\n"
+                    "Roles: {role_count}"
                 ).format(
                     afk_chan=bold(str(guild.afk_channel))
                     if guild.afk_channel

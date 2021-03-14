@@ -143,17 +143,30 @@ class StartUpTasks(MixinMeta, metaclass=CompositeMetaClass):
             return
         if current_notification < 1 <= _OWNER_NOTIFICATION:
             msg = _(
-                """Hello, this message brings you an important update regarding the core Audio cog:
-                
-Starting from Audio v2.3.0+ you can take advantage of the **Global Audio API**, a new service offered by the Cog-Creators organization that allows your bot to greatly reduce the amount of requests done to YouTube / Spotify. This reduces the likelihood of YouTube rate-limiting your bot for making requests too often.
-See `[p]help audioset globalapi` for more information.
-Access to this service is disabled by default and **requires you to explicitly opt-in** to start using it.
-
-An access token is **required** to use this API. To obtain this token you may join <https://discord.gg/red> and run `?audioapi register` in the #testing channel.
-Note: by using this service you accept that your bot's IP address will be disclosed to the Cog-Creators organization and used only for the purpose of providing the Global API service.
-
-On a related note, it is highly recommended that you enable your local cache if you haven't yet.
-To do so, run `[p]audioset cache 5`. This cache, which stores only metadata, will make repeated audio requests faster and further reduce the likelihood of YouTube rate-limiting your bot. Since it's only metadata the required disk space for this cache is expected to be negligible."""
+                "Hello, this message brings you an important update regarding the core Audio cog:"
+                "\n\n"
+                "Starting from Audio v2.3.0+ you can take advantage of the **Global Audio API**,"
+                " a new service offered by the Cog-Creators organization that allows your bot to"
+                " greatly reduce the amount of requests done to YouTube / Spotify."
+                " This reduces the likelihood of YouTube rate-limiting your bot"
+                " for making requests too often.\n"
+                "See `[p]help audioset globalapi` for more information.\n"
+                "Access to this service is disabled by default"
+                " and **requires you to explicitly opt-in** to start using it."
+                "\n\n"
+                "An access token is **required** to use this API."
+                " To obtain this token you may join <https://discord.gg/red>"
+                " and run `?audioapi register` in the #testing channel.\n"
+                "Note: by using this service you accept that your bot's IP address"
+                " will be disclosed to the Cog-Creators organization and used only for"
+                " the purpose of providing the Global API service."
+                "\n\n"
+                "On a related note, it is highly recommended that"
+                " you enable your local cache if you haven't yet.\n"
+                "To do so, run `[p]audioset cache 5`. This cache, which stores only metadata,"
+                " will make repeated audio requests faster and further reduce the likelihood of"
+                " YouTube rate-limiting your bot. Since it's only metadata the required disk space"
+                " for this cache is expected to be negligible."
             )
             await send_to_owners_with_prefix_replaced(self.bot, msg)
             await self.config.owner_notification.set(1)

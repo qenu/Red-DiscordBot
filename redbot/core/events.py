@@ -2,7 +2,6 @@ import asyncio
 import contextlib
 import platform
 import sys
-import codecs
 import logging
 import traceback
 from datetime import datetime, timedelta
@@ -10,18 +9,15 @@ from datetime import datetime, timedelta
 import aiohttp
 import discord
 import pkg_resources
-from pkg_resources import DistributionNotFound
 from redbot.core import data_manager
 
 from redbot.core.commands import RedHelpFormatter, HelpSettings
 from redbot.core.i18n import (
     Translator,
-    set_contextual_locale,
-    set_contextual_regional_format,
     set_contextual_locales_from_guild,
 )
 from .utils import AsyncIter
-from .. import __version__ as red_version, version_info as red_version_info, VersionInfo
+from .. import __version__ as red_version, version_info as red_version_info
 from . import commands
 from .config import get_latest_confs
 from .utils._internal_utils import (
@@ -30,7 +26,7 @@ from .utils._internal_utils import (
     expected_version,
     fetch_latest_red_version_info,
 )
-from .utils.chat_formatting import inline, bordered, format_perms_list, humanize_timedelta
+from .utils.chat_formatting import inline, format_perms_list, humanize_timedelta
 
 import rich
 from rich import box
@@ -78,10 +74,7 @@ def init_events(bot, cli_flags):
             bot.owner_ids.add(app_info.owner.id)
         bot._app_owners_fetched = True
 
-        try:
-            invite_url = discord.utils.oauth_url(app_info.id)
-        except:
-            invite_url = "Could not fetch invite url"
+        invite_url = discord.utils.oauth_url(app_info.id)
 
         prefixes = cli_flags.prefix or (await bot._config.prefix())
         lang = await bot._config.locale()
@@ -189,7 +182,8 @@ def init_events(bot, cli_flags):
             # We generally shouldn't care if the client supports it or not as Rich deals with it.
         if not guilds:
             rich_console.print(
-                f"Looking for a quick guide on setting up Red? Checkout {Text('https://start.discord.red', style='link https://start.discord.red}')}"
+                "Looking for a quick guide on setting up Red? Checkout",
+                Text("https://start.discord.red", style="link https://start.discord.red"),
             )
         if rich_outdated_message:
             rich_console.print(rich_outdated_message)

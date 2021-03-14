@@ -23,7 +23,6 @@ import aiohttp
 import discord
 from babel import Locale as BabelLocale, UnknownLocaleError
 from redbot.core.data_manager import storage_type
-from redbot.core.utils.chat_formatting import box, pagify
 
 from . import (
     __version__,
@@ -2949,7 +2948,6 @@ class Core(commands.commands._RuleDropper, commands.Cog, CoreLogic):
         """
         Adds a user or role to the server allowlist.
         """
-        names = [getattr(u_or_r, "name", u_or_r) for u_or_r in users_or_roles]
         uids = {getattr(u_or_r, "id", u_or_r) for u_or_r in users_or_roles}
         if not (ctx.guild.owner == ctx.author or await self.bot.is_owner(ctx.author)):
             current_whitelist = await self.bot._whiteblacklist_cache.get_whitelist(ctx.guild)
@@ -2997,7 +2995,6 @@ class Core(commands.commands._RuleDropper, commands.Cog, CoreLogic):
         """
         Removes user or role from the allowlist.
         """
-        names = [getattr(u_or_r, "name", u_or_r) for u_or_r in users_or_roles]
         uids = {getattr(u_or_r, "id", u_or_r) for u_or_r in users_or_roles}
         if not (ctx.guild.owner == ctx.author or await self.bot.is_owner(ctx.author)):
             current_whitelist = await self.bot._whiteblacklist_cache.get_whitelist(ctx.guild)
@@ -3052,7 +3049,6 @@ class Core(commands.commands._RuleDropper, commands.Cog, CoreLogic):
             if await ctx.bot.is_owner(uid):
                 await ctx.send(_("You cannot add a bot owner to the blocklist!"))
                 return
-        names = [getattr(u_or_r, "name", u_or_r) for u_or_r in users_or_roles]
         uids = {getattr(u_or_r, "id", u_or_r) for u_or_r in users_or_roles}
         await self.bot._whiteblacklist_cache.add_to_blacklist(ctx.guild, uids)
 
@@ -3088,7 +3084,6 @@ class Core(commands.commands._RuleDropper, commands.Cog, CoreLogic):
         """
         Removes user or role from blocklist.
         """
-        names = [getattr(u_or_r, "name", u_or_r) for u_or_r in users_or_roles]
         uids = {getattr(u_or_r, "id", u_or_r) for u_or_r in users_or_roles}
         await self.bot._whiteblacklist_cache.remove_from_blacklist(ctx.guild, uids)
 
