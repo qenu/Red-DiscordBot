@@ -8,3 +8,11 @@
     )/
     '''
 
+[tool.isort]
+    profile = "black"
+    line_length = 99
+    combine_as_imports = true
+    skip_glob = [
+        "redbot/vendored/*"
+    ]
+    filter_files = true
