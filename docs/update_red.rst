@@ -23,6 +23,7 @@ Updating differs depending on the version you currently have. Next sections will
 .. contents:: Choose the version you're currently on from the list below:
     :local:
     :depth: 1
+    :class: this-will-duplicate-information-and-it-is-still-useful-here
 
 
 Red 3.2.0 or newer
