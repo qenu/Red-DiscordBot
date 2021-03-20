@@ -19,63 +19,54 @@ The pre-requirements are:
 We also recommend installing some basic compiler tools, in case our dependencies don't provide
 pre-built "wheels" for your architecture.
 
-.. contents:: Choose a method of installing pre-requirements:
-    :local:
+**Install the pre-requirements:**
 
-----
+.. tab:: Using PowerShell and Chocolatey (recommended)
 
-*********************************************
-Using PowerShell and Chocolatey (recommended)
-*********************************************
+    To install via PowerShell, search "powershell" in the Windows start menu,
+    right-click on it and then click "Run as administrator".
 
-To install via PowerShell, search "powershell" in the Windows start menu,
-right-click on it and then click "Run as administrator".
+    Then run each of the following commands:
 
-Then run each of the following commands:
+    .. prompt:: powershell
 
-.. prompt:: powershell
+        Set-ExecutionPolicy Bypass -Scope Process -Force
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        choco upgrade git --params "/GitOnlyOnPath /WindowsTerminal" -y
+        choco upgrade visualstudio2019-workload-vctools -y
+        choco upgrade python3 -y --version 3.8.8
 
-    Set-ExecutionPolicy Bypass -Scope Process -Force
-    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-    choco upgrade git --params "/GitOnlyOnPath /WindowsTerminal" -y
-    choco upgrade visualstudio2019-workload-vctools -y
-    choco upgrade python3 -y --version 3.8.10
+    For Audio support, you should also run the following command before exiting:
 
-For Audio support, you should also run the following command before exiting:
+    .. prompt:: powershell
 
-.. prompt:: powershell
-
-    choco upgrade adoptopenjdk11jre -y
+        choco upgrade adoptopenjdk11jre -y
 
 
-From here, exit the prompt then continue onto `creating-venv-windows`.
+    From here, exit the prompt then continue onto `creating-venv-windows`.
 
-----
+.. tab:: Manually installing dependencies
 
-********************************
-Manually installing dependencies
-********************************
+    .. attention:: There are additional configuration steps required which are
+                   not documented for installing dependencies manually.
+                   These dependencies are only listed seperately here for
+                   reference purposes.
 
-.. attention:: There are additional configuration steps required which are
-               not documented for installing dependencies manually.
-               These dependencies are only listed seperately here for
-               reference purposes.
+    * `MSVC Build tools <https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2019>`_
 
-* `MSVC Build tools <https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2019>`_
+    * `Python 3.8.1 or greater <https://www.python.org/downloads/>`_; **Python 3.9 is currently not supported!**
 
-* `Python 3.8.1 or greater <https://www.python.org/downloads/>`_; **Python 3.9 is currently not supported!**
+    .. attention:: Please make sure that the box to add Python to PATH is CHECKED, otherwise
+                   you may run into issues when trying to run Red.
 
-.. attention:: Please make sure that the box to add Python to PATH is CHECKED, otherwise
-               you may run into issues when trying to run Red.
+    * `Git 2.11+ <https://git-scm.com/download/win>`_
 
-* `Git 2.11+ <https://git-scm.com/download/win>`_
+    .. attention:: Please choose the option to "Git from the command line and also from 3rd-party software" in Git's setup.
 
-.. attention:: Please choose the option to "Git from the command line and also from 3rd-party software" in Git's setup.
+    * `Java 11 <https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot>`_ - needed for Audio
 
-* `Java 11 <https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot>`_ - needed for Audio
-
-From here, continue onto `creating-venv-windows`.
+    From here, continue onto `creating-venv-windows`.
 
 ----
 
