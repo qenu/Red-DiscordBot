@@ -1,3 +1,4 @@
 packaging
+pre-commit
 tox
 -e .[dev]
