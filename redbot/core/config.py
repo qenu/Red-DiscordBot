@@ -14,6 +14,7 @@ from typing import (
     Type,
     TypeVar,
     Union,
+    overload,
 )
 
 import discord
@@ -81,13 +82,21 @@ class _ValueCtxManager(Awaitable[_T], AsyncContextManager[_T]):  # pylint: disab
     to ``__init__`` is set to ``True``.
     """
 
-    def __init__(self, value_obj: "Value", coro: Awaitable[Any], *, acquire_lock: bool):
+    def __init__(
+        self,
+        value_obj: "Value",
+        coro: Awaitable[Any],
+        *,
+        acquire_lock: bool,
+        cast_keys_before_compare: bool = True,
+    ):
         self.value_obj = value_obj
         self.coro = coro
         self.raw_value = None
         self.__original_value = None
         self.__acquire_lock = acquire_lock
         self.__lock = self.value_obj.get_lock()
+        self.__cast_keys_before_compare = cast_keys_before_compare
 
     def __await__(self):
         return self.coro.__await__()
@@ -107,7 +116,7 @@ class _ValueCtxManager(Awaitable[_T], AsyncContextManager[_T]):  # pylint: disab
 
     async def __aexit__(self, exc_type, exc, tb):
         try:
-            if isinstance(self.raw_value, dict):
+            if self.__cast_keys_before_compare and isinstance(self.raw_value, dict):
                 raw_value = _str_key_dict(self.raw_value)
             else:
                 raw_value = self.raw_value
@@ -1142,22 +1151,36 @@ class Config(metaclass=ConfigMeta):
         overwritten.
         """
         group = self._get_base_group(scope)
-        ret = {}
-        defaults = self.defaults.get(scope, {})
 
         try:
             dict_ = await self.driver.get(group.identifier_data)
         except KeyError:
-            pass
-        else:
-            for k, v in dict_.items():
+            dict_ = None
+        return self._cast_keys_to_ints(scope, dict_)
+
+    def _cast_keys_to_ints(
+        self,
+        scope: str,
+        dict_: Optional[Dict[str, Dict[Any, Any]]],
+        *,
+        levels: int = 1,
+    ) -> Dict[int, Dict[Any, Any]]:
+        if dict_ is None:
+            return {}
+        ret = {}
+        defaults = self.defaults.get(scope, {})
+
+        for k, v in dict_.items():
+            if levels <= 1:
                 data = pickle.loads(pickle.dumps(defaults, -1))
                 data.update(v)
                 ret[int(k)] = data
+            else:
+                ret[int(k)] = self._cast_keys_to_ints(scope, v, levels=levels - 1)
 
         return ret
 
-    async def all_guilds(self) -> dict:
+    def all_guilds(self, *, acquire_lock: bool = True) -> _ValueCtxManager[Dict[int, Any]]:
         """Get all guild data as a dict.
 
         Note
@@ -1172,9 +1195,14 @@ class Config(metaclass=ConfigMeta):
             :code:`GUILD_ID -> data`.
 
         """
-        return await self._all_from_scope(self.GUILD)
+        return _ValueCtxManager(
+            self._get_base_group(self.GUILD),
+            self._all_from_scope(self.GUILD),
+            acquire_lock=acquire_lock,
+            cast_keys_before_compare=False,
+        )
 
-    async def all_channels(self) -> dict:
+    def all_channels(self, *, acquire_lock: bool = True) -> _ValueCtxManager[Dict[int, Any]]:
         """Get all channel data as a dict.
 
         Note
@@ -1189,9 +1217,14 @@ class Config(metaclass=ConfigMeta):
             :code:`CHANNEL_ID -> data`.
 
         """
-        return await self._all_from_scope(self.CHANNEL)
+        return _ValueCtxManager(
+            self._get_base_group(self.CHANNEL),
+            self._all_from_scope(self.CHANNEL),
+            acquire_lock=acquire_lock,
+            cast_keys_before_compare=False,
+        )
 
-    async def all_roles(self) -> dict:
+    def all_roles(self, *, acquire_lock: bool = True) -> _ValueCtxManager[Dict[int, Any]]:
         """Get all role data as a dict.
 
         Note
@@ -1206,9 +1239,14 @@ class Config(metaclass=ConfigMeta):
             :code:`ROLE_ID -> data`.
 
         """
-        return await self._all_from_scope(self.ROLE)
+        return _ValueCtxManager(
+            self._get_base_group(self.ROLE),
+            self._all_from_scope(self.ROLE),
+            acquire_lock=acquire_lock,
+            cast_keys_before_compare=False,
+        )
 
-    async def all_users(self) -> dict:
+    def all_users(self, *, acquire_lock: bool = True) -> _ValueCtxManager[Dict[int, Any]]:
         """Get all user data as a dict.
 
         Note
@@ -1223,18 +1261,48 @@ class Config(metaclass=ConfigMeta):
             :code:`USER_ID -> data`.
 
         """
-        return await self._all_from_scope(self.USER)
+        return _ValueCtxManager(
+            self._get_base_group(self.USER),
+            self._all_from_scope(self.USER),
+            acquire_lock=acquire_lock,
+            cast_keys_before_compare=False,
+        )
 
-    def _all_members_from_guild(self, guild_data: dict) -> dict:
-        ret = {}
-        defaults = self.defaults.get(self.MEMBER, {})
-        for member_id, member_data in guild_data.items():
-            new_member_data = pickle.loads(pickle.dumps(defaults, -1))
-            new_member_data.update(member_data)
-            ret[int(member_id)] = new_member_data
-        return ret
+    @overload
+    async def _all_from_members(self, group: Group, *, guild: None) -> Dict[int, Dict[int, Any]]:
+        ...
 
-    async def all_members(self, guild: discord.Guild = None) -> dict:
+    @overload
+    async def _all_from_members(self, group: Group, *, guild: discord.Guild) -> Dict[int, Any]:
+        ...
+
+    async def _all_from_members(
+        self, group: Group, *, guild: Optional[discord.Guild]
+    ) -> Union[Dict[int, Dict[int, Any]], Dict[int, Any]]:
+        try:
+            dict_ = await self.driver.get(group.identifier_data)
+        except KeyError:
+            dict_ = None
+
+        return self._cast_keys_to_ints(
+            self.MEMBER, dict_, levels=2 - len(group.identifier_data.primary_key)
+        )
+
+    @overload
+    def all_members(
+        self, guild: None = None, *, acquire_lock: bool = ...
+    ) -> _ValueCtxManager[Dict[int, Dict[int, Any]]]:
+        ...
+
+    @overload
+    def all_members(
+        self, guild: discord.Guild, *, acquire_lock: bool = ...
+    ) -> _ValueCtxManager[Dict[int, Any]]:
+        ...
+
+    def all_members(
+        self, guild: Optional[discord.Guild] = None, *, acquire_lock: bool = True
+    ) -> Union[_ValueCtxManager[Dict[int, Dict[int, Any]]], _ValueCtxManager[Dict[int, Any]]]:
         """Get data for all members.
 
         If :code:`guild` is specified, only the data for the members of that
@@ -1259,25 +1327,16 @@ class Config(metaclass=ConfigMeta):
             A dictionary of all specified member data.
 
         """
-        ret = {}
         if guild is None:
             group = self._get_base_group(self.MEMBER)
-            try:
-                dict_ = await self.driver.get(group.identifier_data)
-            except KeyError:
-                pass
-            else:
-                for guild_id, guild_data in dict_.items():
-                    ret[int(guild_id)] = self._all_members_from_guild(guild_data)
         else:
             group = self._get_base_group(self.MEMBER, str(guild.id))
-            try:
-                guild_data = await self.driver.get(group.identifier_data)
-            except KeyError:
-                pass
-            else:
-                ret = self._all_members_from_guild(guild_data)
-        return ret
+        return _ValueCtxManager(
+            group,
+            self._all_from_members(group, guild=guild),
+            acquire_lock=acquire_lock,
+            cast_keys_before_compare=False,
+        )
 
     async def _clear_scope(self, *scopes: str):
         """Clear all data in a particular scope.
