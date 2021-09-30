@@ -660,3 +660,10 @@ async def test_config_custom_partial_pkeys_set(config, pkeys, raw_args, result):
     group = config.custom("TEST", *pkeys)
     await group.set_raw(*raw_args, value=result)
     assert await group.get_raw(*raw_args) == result
+
+
+# number precision
+@pytest.mark.asyncio
+async def test_set_long_number(config):
+    await config.long_number.set(862846667829149697)
+    assert await config.long_number() == 862846667829149697
