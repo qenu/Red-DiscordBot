@@ -667,3 +667,11 @@ async def test_config_custom_partial_pkeys_set(config, pkeys, raw_args, result):
 async def test_set_long_number(config):
     await config.long_number.set(862846667829149697)
     assert await config.long_number() == 862846667829149697
+    assert isinstance(await config.long_number(), int)
+
+
+@pytest.mark.asyncio
+async def test_set_long_number_guild_scope(config, empty_guild):
+    await config.guild(empty_guild).long_number.set(862846667829149697)
+    assert await config.guild(empty_guild).long_number() == 862846667829149697
+    assert isinstance(await config.guild(empty_guild).long_number(), int)
