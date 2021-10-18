@@ -122,6 +122,19 @@ html_theme = "sphinx_immaterial"
 # documentation.
 #
 html_theme_options = {
+    "icon": {
+        "logo": "material/library",
+        "repo": "fontawesome/brands/github",
+    },
+    "site_url": "https://docs.discord.red",
+    "repo_url": "https://github.com/Cog-Creators/Red-DiscordBot",
+    "repo_name": "Red-DiscordBot",
+    "repo_type": "github",
+    "edit_uri": "blob/V3/develop/docs",
+    "features": [
+        "navigation.sections",
+        "navigation.top",
+    ],
     "palette": [
         {
             "media": "(prefers-color-scheme: light)",
@@ -144,14 +157,6 @@ html_theme_options = {
             },
         },
     ],
-}
-
-html_context = {
-    # Enable the "Edit in GitHub link within the header of each page.
-    "display_github": True,
-    "github_user": "Cog-Creators",
-    "github_repo": "Red-DiscordBot",
-    "github_version": "V3/develop/docs/",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
