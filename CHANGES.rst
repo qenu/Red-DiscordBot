@@ -2757,6 +2757,47 @@ Enhancements
 
 - Added trivia lists for Prince and Michael Jackson lyrics. (:issue:`12`)
 
+
+Redbot 3.1.2 (2019-05-31)
+=========================
+
+End-user changelog
+------------------
+
+- ``[p]names`` command no longer requires quoting usernames that contain spaces (:issue:`2675`)
+- ``[p]userinfo`` command now mentions the voice channel the user is in (:issue:`2680`)
+- ``[p]load``, ``[p]unload``, and ``[p]reload`` commands now strip commas from the passed cogs to aid with copy-pasting (:issue:`2693`)
+- ``[p]pipinstall`` now indicates that it's doing something (:issue:`2700`)
+- Added a few new settings for bot's help (:issue:`2667`, :issue:`2681`, :issue:`2676`)
+
+    - ``[p]helpset usemenus`` - Allows the help command to be sent as a paginated menu.
+    - ``[p]helpset showhidden`` - Allows the help command to show hidden commands.
+    - ``[p]helpset verifychecks``  - Sets if commands which can't be run in the current context should be
+        filtered from help.
+    - ``[p]helpset verifyexists`` - Allows the bot to respond indicating the existence of a specific
+        help topic even if the user can't use it.
+
+    For more information, see help of each of the listed commands.
+
+- Added ``[p]debuginfo`` command (:issue:`2728`)
+- Improve naming consistency of subcommands that *delete* something (:issue:`2731`)
+- ``[p]set api`` command now allows the user to separate their keys and values with space in addition to commas and semicolons (:issue:`2692`)
+- Added a generic system that can be used by cog creators to send notifications meant for bot owners (:issue:`2665`, :issue:`2738`, :issue:`2745`)
+
+    This comes with some commands that allow to manage the destinations for the owner notifications.
+    See the help of commands in ``[p]set ownernotifications`` command group for more information.
+
+- Added ``[p]slowmode`` command (:issue:`2734`)
+
+Developer changelog
+-------------------
+
+- Added `redbot.core.commands.DictConverter` (:issue:`2692`)
+- Added `Red.send_to_owners()` and `Red.get_owner_notification_destinations()` (:issue:`2665`, :issue:`2738`)
+- Added `redbot.core.commands.TimedeltaConverter` and `redbot.core.commands.parse_timedelta` (:issue:`2736`)
+- Added ``assume_yes`` attribute to `redbot.core.commands.Context` (:issue:`2746`)
+
+
 Redbot 3.1.1 (2019-05-15)
 =========================
 
