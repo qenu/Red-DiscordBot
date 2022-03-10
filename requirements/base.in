@@ -14,5 +14,6 @@ Red-Commons
 Red-Lavalink
 rich
 schema
+typing_extensions
 distro; sys_platform == "linux"
 uvloop; sys_platform != "win32" and platform_python_implementation == "CPython"
